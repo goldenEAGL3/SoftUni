@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class SecProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		int recordMinutes = Integer.parseInt(sc.nextLine());
+		int recordSeconds = Integer.parseInt(sc.nextLine());
+		double meters = Double.parseDouble(sc.nextLine());
+		int secondsFor100Meters = Integer.parseInt(sc.nextLine());
+		
+		int recordInSeconds = recordMinutes * 60 + recordSeconds;
+		
+		double numMetersWithSlowing = meters / 120;
+		double secondsSlowing = numMetersWithSlowing * 2.5;
+		
+		double hisTime = (secondsFor100Meters * meters) / 100 - secondsSlowing;
+		
+		if(hisTime <= recordInSeconds) {
+			System.out.printf("Marin Bangiev won an Olympic quota!%nHis time is %.3f.", hisTime );
+		}
+		else {
+			System.out.printf("No, Marin failed! He was %.3f second slower.", hisTime - recordInSeconds );
+		}
+	}
+
+}
