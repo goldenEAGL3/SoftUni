@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+public class FirstProblem {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		double yearTax = Double.parseDouble(sc.nextLine());
+		
+		double shoesTax = yearTax - yearTax * 0.4;
+		double kitTax = shoesTax - shoesTax * 0.2;
+		double basketballTax = kitTax / 4;
+		double basketballAccessories = basketballTax / 5;
+		
+		double finalPrice = yearTax + kitTax + basketballTax + basketballAccessories + shoesTax;
+		System.out.printf("%.2f", finalPrice);
+		
+	}
+
+}
