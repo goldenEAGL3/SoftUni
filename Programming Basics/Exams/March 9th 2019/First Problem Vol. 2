@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class FirstProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		double racketPrice = Double.parseDouble(sc.nextLine());
+		int numRackets = Integer.parseInt(sc.nextLine());
+		int numShoes = Integer.parseInt(sc.nextLine());
+		
+		double shoePrice = racketPrice / 6;
+		double racketShoePrice = numShoes *shoePrice + numRackets *racketPrice;
+		double additionalPrice = racketShoePrice * 0.2;
+		
+		double totalPrice = additionalPrice + racketShoePrice;
+		
+		System.out.printf("Price to be paid by Djokovic %.0f%n", Math.floor(totalPrice / 8) );
+		System.out.printf("Price to be paid by sponsors %.0f", Math.ceil(totalPrice - totalPrice / 8) );
+	}
+
+}
