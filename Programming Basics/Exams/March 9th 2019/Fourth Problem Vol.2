@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class FourthProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int startingPoints = 301;
+		String playerName = sc.nextLine();
+		String command = sc.nextLine();
+		boolean legIsWon = false;
+		int countShots = 0;
+		int countUnsuccessfulShots = 0;
+		
+		while(!"Retire".equals(command)) {
+			int points = Integer.parseInt(sc.nextLine());
+			if("Single".equals(command)) {
+				if(startingPoints - points  >= 0) {
+					startingPoints -=points;
+					countShots++;
+				}
+				else countUnsuccessfulShots++;
+				
+			}
+			else if("Double".equals(command)) {
+				if(startingPoints - points * 2 >= 0) {
+					startingPoints -=points * 2;
+					countShots++;
+				}
+				else countUnsuccessfulShots++;
+				
+			}
+			else if("Triple".equals(command)) {
+				if(startingPoints - points * 3 >= 0) {
+					startingPoints -= points * 3;
+					countShots++;
+				} 
+				else countUnsuccessfulShots++;
+				
+			}
+			if(startingPoints == 0) {
+				legIsWon = true;
+				break;
+			}
+			command = sc.nextLine();
+		}
+		
+		if(legIsWon) {
+			System.out.printf("%s won the leg with %d shots.", playerName, countShots );
+		}
+		else {
+			System.out.printf("%s retired after %d unsuccessful shots.", playerName, countUnsuccessfulShots );
+		}
+		
+
+	}
+
+}
