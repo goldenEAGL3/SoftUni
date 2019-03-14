@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class ThirdProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String typeOfTournament = sc.nextLine();
+		String typeOfTicket = sc.nextLine();
+		int numTickets = Integer.parseInt(sc.nextLine());
+		String pictureWithTrophy = sc.nextLine();
+		
+		double totalWithoutDiscount = 0;
+		
+		
+		if("Quarter final".equals(typeOfTournament)) {
+			switch(typeOfTicket) {
+				case "Standard":
+					totalWithoutDiscount = numTickets * 55.5;
+					break;
+				
+				case "Premium":
+					totalWithoutDiscount = numTickets * 105.2;
+					break;
+				
+				case "VIP":
+					totalWithoutDiscount = numTickets * 118.9;
+					break;
+				
+			}
+		}
+		
+		if("Semi final".equals(typeOfTournament)) {
+			switch(typeOfTicket) {
+				case "Standard":
+					totalWithoutDiscount = numTickets * 75.88;
+					break;
+				
+				case "Premium":
+					totalWithoutDiscount = numTickets * 125.22;
+					break;
+				
+				case "VIP":
+					totalWithoutDiscount = numTickets * 300.4;
+					break;
+				
+			}
+		}
+		
+		if("Final".equals(typeOfTournament)) {
+			switch(typeOfTicket) {
+				case "Standard":
+					totalWithoutDiscount = numTickets * 110.1;
+					break;
+				
+				case "Premium":
+					totalWithoutDiscount = numTickets * 160.66;
+					break;
+				
+				case "VIP":
+					totalWithoutDiscount = numTickets * 400.0;
+					break;
+				
+			}
+		}
+		double total = 0;
+		if(totalWithoutDiscount > 4000) {
+			total = totalWithoutDiscount -totalWithoutDiscount * 0.25;
+		}
+		else if(totalWithoutDiscount > 2500) {
+			total = totalWithoutDiscount -totalWithoutDiscount * 0.1;
+			if("Y".equals(pictureWithTrophy)) {
+				total += 40 *  numTickets;
+			}
+		}
+		else {
+			if("Y".equals(pictureWithTrophy)) {
+				total = totalWithoutDiscount + 40 * numTickets;
+			}
+			else {
+				total = totalWithoutDiscount;
+			}
+		}
+		System.out.printf("%.2f", total);
+
+	}
+
+}
