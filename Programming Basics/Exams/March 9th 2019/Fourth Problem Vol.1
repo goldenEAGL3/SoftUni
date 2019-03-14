@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class FourthProblem {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String nameOfPlayerOne = sc.nextLine();
+		String nameOfPlayerTwo = sc.nextLine();
+		
+		String command1 = sc.nextLine();
+		int pointsPlayerOne = 0;
+		int pointsPlayerTwo = 0;
+		boolean numberWars = false;
+		int lastCardPlayerOne = 0;
+		int lastCardPlayerTwo = 0;
+		
+		while(!"End of game".equals(command1)) {
+			String command2 = sc.nextLine();
+			
+			int card1 = Integer.parseInt(command1);
+			int card2 = Integer.parseInt(command2);
+			
+			if(card1 > card2) {
+				pointsPlayerOne += card1 - card2;
+			}
+			else if( card1 < card2) {
+				pointsPlayerTwo += card2 - card1;
+			}
+			else {
+				System.out.println("Number wars!");
+				 lastCardPlayerOne = Integer.parseInt(sc.nextLine());
+				 lastCardPlayerTwo = Integer.parseInt(sc.nextLine());
+				numberWars = true;
+								
+				break;
+			}
+			command1 = sc.nextLine();
+		}
+			if(numberWars) {
+					if(lastCardPlayerOne > lastCardPlayerTwo) {
+					System.out.printf("%s is winner with %d points", nameOfPlayerOne, pointsPlayerOne );
+					}
+					else if(lastCardPlayerOne < lastCardPlayerTwo) {
+					System.out.printf("%s is winner with %d points", nameOfPlayerTwo, pointsPlayerTwo );
+					}
+			}
+			else {
+				System.out.printf("%s has %d points%n", nameOfPlayerOne, pointsPlayerOne );
+				System.out.printf("%s has %d points", nameOfPlayerTwo, pointsPlayerTwo );
+			}
+			
+
+	}
+
+}
