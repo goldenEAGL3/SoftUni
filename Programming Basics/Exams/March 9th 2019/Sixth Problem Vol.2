@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class SixthProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String command = sc.nextLine();
+		int countWins = 0;
+		int countLost = 0;
+		while(!"End of tournaments".equals(command)) {
+			int numMatches = Integer.parseInt(sc.nextLine());
+			for(int i = 1; i <= numMatches ; i++) {
+				int desiTeam = Integer.parseInt(sc.nextLine());
+				int opponentsTeam = Integer.parseInt(sc.nextLine());
+				if(desiTeam > opponentsTeam) {
+					System.out.printf("Game %d of tournament %s: win with %d points.%n", i, command, desiTeam - opponentsTeam );
+					countWins++;
+				}
+				else {
+					System.out.printf("Game %d of tournament %s: lost with %d points.%n", i, command, Math.abs(desiTeam - opponentsTeam));
+					countLost++;
+				}
+				
+			}
+			command = sc.nextLine();
+		}
+		int allMatches = countWins + countLost;
+		double percentageWin = (countWins *1.0 / allMatches)*100;
+		System.out.printf("%.2f%% matches win%n", percentageWin );
+		System.out.printf("%.2f%% matches lost", 100 - percentageWin );
+	}
+	
+	
+
+}
