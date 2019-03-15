@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class FifthProblemVol2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int numVisitors = Integer.parseInt(sc.nextLine());
+		
+		int countBack = 0;
+		int countChest = 0;
+		int countLegs = 0;
+		int countAbs = 0;
+		int countProteinShake = 0;
+		int countProteinBar = 0;
+		int countTraining = 0;
+		
+		for(int i = 0; i < numVisitors ; i++) {
+			String command = sc.nextLine();
+			switch (command) {
+				case "Back":
+					countBack++;
+					countTraining++;
+					break;
+					
+				case "Chest":
+					countChest++;
+					countTraining++;
+					break;
+					
+				case "Legs":
+					countLegs++;
+					countTraining++;
+					break;
+					
+				case "Abs":
+					countAbs++;
+					countTraining++;
+					break;
+					
+				case "Protein shake":
+					countProteinShake++;
+					break;
+					
+				case "Protein bar":
+					countProteinBar++;
+					break;
+				
+			}
+		}
+		double percentageWorkingOut = (countTraining *1.0 / numVisitors)*100;
+		System.out.printf(
+				"%d - back%n"
+				+ "%d - chest%n"
+				+ "%d - legs%n"
+				+ "%d - abs%n"
+				+ "%d - protein shake%n"
+				+ "%d - protein bar%n"
+				+ "%.2f%% - work out%n"
+				+ "%.2f%% - protein%n", 
+				countBack,
+				countChest,
+				countLegs,
+				countAbs,
+				countProteinShake,
+				countProteinBar,
+				percentageWorkingOut,
+				100.00 - percentageWorkingOut
+				); 
+	}
+
+}
