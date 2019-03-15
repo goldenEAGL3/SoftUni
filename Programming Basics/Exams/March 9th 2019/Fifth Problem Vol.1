@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class FifthProblem {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int numTournaments = Integer.parseInt(sc.nextLine());
+		int startingPoints = Integer.parseInt(sc.nextLine());
+		int points = 0;
+		int winCount = 0;
+		
+		for(int i = 0; i < numTournaments ; i++) {
+			String tournamentStage = sc.nextLine();
+			
+			if("W".equals(tournamentStage)) {
+				points += 2000;
+				winCount++;
+			}
+			else if("F".equals(tournamentStage)) {
+				points += 1200;
+			}
+			else if("SF".equals(tournamentStage)) {
+				points += 720;
+			}
+		}
+		double averagePoints = Math.floor(points * 1.0 / numTournaments);
+		double percentage = (winCount * 1.0 / numTournaments)*100;
+		
+		System.out.printf("Final points: %d%n", startingPoints + points );
+		System.out.printf("Average points: %.0f%n", averagePoints);
+		System.out.printf("%.2f%%", percentage);
+	}
+
+}
