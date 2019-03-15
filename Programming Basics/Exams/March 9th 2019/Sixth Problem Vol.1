@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class SixthProblem {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int desiredHeight = Integer.parseInt(sc.nextLine());
+		boolean heIsSuccessful = false;
+		boolean heIsNotSuccessful = false;
+		int firstObstacle = desiredHeight - 30;
+		int countJumps = 0;
+		
+		while(!heIsSuccessful) {
+			int unsuccessfulJumps = 0;
+			for(int i = 0; i < 3 ; i++) {
+				int jumpedHeight = Integer.parseInt(sc.nextLine());
+				countJumps++;
+				if(jumpedHeight > firstObstacle) {
+					if(firstObstacle == desiredHeight) {
+						heIsSuccessful = true;
+						break;
+					} else {
+						firstObstacle +=5;
+						break;
+					}
+					
+				}
+				else {
+					unsuccessfulJumps++;
+					if(unsuccessfulJumps == 3) {
+						heIsNotSuccessful = true;
+					}
+				}
+			}
+			if(heIsNotSuccessful) {
+				break;
+			}
+			
+			
+			
+		}
+		
+		if(heIsSuccessful) {
+			System.out.printf("Tihomir succeeded, he jumped over %dcm after %d jumps.", desiredHeight, countJumps );
+		}
+		else if(heIsNotSuccessful) {
+			System.out.printf("Tihomir failed at %dcm after %d jumps.", firstObstacle, countJumps );
+		}
+	}
+
+}
