@@ -1,0 +1,55 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class Messaging {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		List<String> numbers =Arrays.stream(sc.nextLine()
+							.split("\\s+"))
+							.collect(Collectors.toList());
+		
+		String input = sc.nextLine();
+		int index = 0;
+		String message = "";
+		while( index < numbers.size()) {
+			String number = numbers.get(index);
+			int sum = 0;
+			
+			for(int i = 0; i < number.length() ; i++) {
+				
+				sum+=Integer.parseInt("" + number.charAt(i));
+				
+			}
+			int asd = input.length();
+			for(int j = 0; j < input.length() ; j++) {
+				
+				if(j == input.length()-1 && j !=sum) {
+					j = -1;
+					sum -= input.length();
+				}
+				else {
+					
+					if(j == sum) {
+						message += input.charAt(j);
+						input = removeCharAt(input,sum);
+						break;
+					}
+				}
+			}
+			
+			index++;
+			
+		}
+		
+		System.out.println(message);
+	}
+	
+	public static String removeCharAt(String input, int pos) {
+	      return input.substring(0, pos) + input.substring(pos + 1);
+	   }
+
+}
