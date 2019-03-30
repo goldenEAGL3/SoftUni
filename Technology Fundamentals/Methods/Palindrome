@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Palindrome {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String command = sc.nextLine();
+		
+		while(!"END".equals(command)) {
+			int count = palindromeCheckPart1(command);
+			palindromeCheckPart2(command, count);
+			
+			command = sc.nextLine();
+		}
+	}
+
+	public static void palindromeCheckPart2(String command, int count) {
+		if(count * 2 == command.length()-1 || count * 2 == command.length()) {
+			System.out.println("true");
+		}
+		else {
+			System.out.println("false");
+		}
+	}
+
+	public static int palindromeCheckPart1(String command) {
+		int count = 0;
+		for(int i = 0, j = command.length()-1; i < command.length()/2; i++, j--) {
+			if(command.charAt(i) == command.charAt(j)) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+}
