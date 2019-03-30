@@ -1,0 +1,198 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+import javax.swing.Box.Filler;
+
+public class ManipulateArray {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int arr[] = Arrays.stream(sc.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray(); 
+		
+		
+		String input = "";
+		
+		while(!"end".equals(input = sc.nextLine())) {
+			
+			String[] data = input.split("\\s+");
+			
+			String command = data[0];
+			
+			switch (command) {
+				case "exchange":
+					exchangeArray(arr, Integer.parseInt(data[1]));
+					break;
+				case "min":
+					minElementIndex(arr, data[1]);
+					break;
+				case "max":
+					maxElementIndex(arr, data[1]);
+					break;
+				case "first":
+					firstCountElements(arr, Integer.parseInt(data[1]), data[2]);
+					break;
+				case "last":
+					lastCountElements(arr, Integer.parseInt(data[1]), data[2]);
+					break;
+				
+			}
+			
+		}
+		System.out.println(Arrays.toString(arr));
+	}
+	
+
+	private static void exchangeArray(int[] arr, int index) {
+		if( index < 0 || index >= arr.length) {
+			System.out.println("Invalid index");
+			return;
+		}
+		int count = 0;
+		int[] result = new int[arr.length];
+		
+		for(int i = index+1; i < arr.length ; i++) {
+			result[count++] = arr[i];
+		}
+			
+		for(int i = 0; i <= index; i++) {
+			result[count++] = arr[i];
+		}
+		
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = result[i];
+		}
+			
+			
+	}
+	
+	private static void minElementIndex(int[] arr, String command) {
+		int num = command.equals("even") ? 0 : 1;
+		int minElement = Integer.MAX_VALUE;
+		int index = -1;
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] % 2 == num) {
+				if(arr[i] <= minElement) {
+					minElement = arr[i];
+					index = i;
+				}
+			}
+		}
+		if(index == -1) {
+			System.out.println("No matches");
+		}
+		else {
+			System.out.println(index);
+		}
+			
+	}
+
+	public static void maxElementIndex(int[] arr, String command) {
+	int num = command.equals("even") ? 0 : 1;
+	int maxElement = Integer.MIN_VALUE;
+	int index = -1;
+	for(int i = 0; i < arr.length; i++) {
+		if(arr[i] % 2 == num) {
+			if(arr[i] >= maxElement) {
+				maxElement = arr[i];
+				index = i;
+			}
+		}
+	}
+	if(index == -1) {
+		System.out.println("No matches");
+	}
+	else {
+		System.out.println(index);
+	}
+		
+	}
+	
+	private static void firstCountElements(int[] arr, int count , String command) {
+		if(validateCount(arr, count)) return;
+		
+		int num = command.equals("even") ? 0 : 1;
+		int index = 0;
+		fillElementByCriteria(arr, count, num, index, "first");
+	}
+
+
+	public static void fillElementByCriteria(int[] arr, int count, int num, int index, String criteria) {
+		int[] result = new int[0];
+		
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] % 2 == num) {
+				if(index == result.length) {
+				result = changeArraySize(result);
+				}
+				
+				result[index++] = arr[i];
+					
+			}
+		}
+			
+		if(index == 0) {
+			System.out.println("[]");
+			
+		}else {
+			int minCount = Math.min(count, result.length);
+			String output = "[";
+			if(criteria.equals("first")) {
+			for(int i = 0; i < minCount; i++) {
+				if(i < minCount - 1) {
+					output += result[i] + ", ";
+				}
+				else {
+					output += result[i] + "]";
+				}
+			}
+				
+			System.out.println(output);
+			}
+			else {
+				int countElements = 0;
+				for(int i = 0; i < minCount; i++) {
+					if(i < minCount - 1) {
+						output += result[result.length - minCount + countElements++] + ", ";
+					}
+					else {
+						output += result[result.length - minCount + countElements++] + "]";
+					}
+				}
+				System.out.println(output);
+			}
+		}
+	}
+
+
+	public static boolean validateCount(int[] arr, int count) {
+		if(count < 0 || count > arr.length) {
+			System.out.println("Invalid count");
+			return true;
+		}
+		return false;
+	}
+
+
+	private static void lastCountElements(int[] arr, int count, String command) {
+		if(validateCount(arr, count)) return;
+		
+		int num = command.equals("even") ? 0 : 1;
+		int index = 0;
+		
+		fillElementByCriteria(arr, count, num, index, "last");
+	}
+
+
+
+
+	private static int[] changeArraySize(int[] result) {
+		int[] newArray = new int[result.length + 1];
+		
+		for(int i = 0; i < result.length; i++) {
+			newArray[i] = result[i];
+		}
+			
+		return newArray;
+	}
+
+}
