@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class MiddleString {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String text = sc.nextLine();
+		
+		String result = middleChar(text);
+		System.out.println(result);
+		
+
+	}
+	public static String middleChar(String text) {
+		String result = "";
+			if(text.length() % 2 == 0) {
+				result ="" +  text.charAt(text.length()/2-1) + text.charAt(text.length()/2);
+			}
+			else result = "" + text.charAt(text.length()/2);
+			
+		
+		return result;
+	}
+}
