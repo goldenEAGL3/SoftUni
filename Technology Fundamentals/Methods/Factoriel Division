@@ -1,0 +1,26 @@
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class Factoriel {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int num1 = Integer.parseInt(sc.nextLine());
+		int num2 = Integer.parseInt(sc.nextLine());
+		
+		long firstFactoriel = factoriel(num1);
+		long secFactoriel = factoriel(num2);
+		DecimalFormat format = new DecimalFormat("#.##");
+		double result = firstFactoriel*1.0  / secFactoriel;
+		System.out.printf("%.2f", result);
+	}
+	public static long factoriel(int a) {
+		long result = 1;
+		for(int i = 1; i <= a; i++) {
+			result *= i;
+		}
+			
+		
+		return result;
+	}
+}
