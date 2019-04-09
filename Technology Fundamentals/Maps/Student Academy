@@ -1,0 +1,45 @@
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class StudentAcademy {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = Integer.parseInt(sc.nextLine());
+        Map<String, List<Double>> students = new LinkedHashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            double grade = Double.parseDouble(sc.nextLine());
+
+            students.putIfAbsent(name, new ArrayList<>());
+            students.get(name).add(grade);
+
+        }
+
+        students
+                .entrySet()
+                .stream()
+                .filter(e -> {
+
+                    double sum = 0;
+                    for (Double d : e.getValue()) {
+                        sum += d;
+
+                    }
+                    double average = sum / e.getValue().size();
+                    e.getValue().removeAll(e.getValue());
+                    e.getValue().add(average);
+
+                    return e.getValue().get(0) >= 4.50;
+                })
+                .sorted((a, b) -> Double.compare(b.getValue().get(0), a.getValue().get(0)))
+                .forEach(a -> {
+                    System.out.printf("%s -> %.2f%n", a.getKey(), a.getValue().get(0));
+                });
+    }
+
+}
+
+
