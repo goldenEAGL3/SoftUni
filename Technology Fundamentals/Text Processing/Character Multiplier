@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class CharacterMultiplier {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] words = sc.nextLine().split("\\s+");
+        int result = characterMultiplication(words[0], words[1]);
+        System.out.println(result);
+    }
+
+    private static int characterMultiplication(String word1, String word2) {
+        int sum = 0;
+        int minLenght = Math.min(word1.length(), word2.length());
+
+        for (int i = 0; i < minLenght; i++) {
+            int stringOne = word1.charAt(i);
+            int stringTwo = word2.charAt(i);
+            sum += stringOne * stringTwo;
+        }
+        int biggerLength = 0;
+        String helpWord = "";
+        if(word1.length() > word2.length()) {
+            biggerLength = word1.length();
+            helpWord = word1;
+        } else if(word1.length() < word2.length()) {
+            biggerLength = word2.length();
+            helpWord = word2;
+        }
+
+        for (int i = minLenght; i < biggerLength; i++) {
+            sum += helpWord.charAt(i);
+        }
+        return sum;
+    }
+
+}
