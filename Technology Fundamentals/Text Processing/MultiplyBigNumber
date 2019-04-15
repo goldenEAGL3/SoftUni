@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class MultiplyBigNumber {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String number1 = sc.nextLine();
+        int number2 = Integer.parseInt(sc.nextLine());
+        StringBuilder sb = new StringBuilder();
+        int leftOver = 0;
+        if(number2 == 0) {
+            System.out.println("0");
+
+        } else {
+            for (int i = number1.length()-1; i >= 0; i--) {
+
+                int digit = Integer.parseInt("" + number1.charAt(i));
+                int result = 0;
+                if(leftOver == 0) {
+                    result = digit * number2;
+                } else {
+                    result = digit * number2 + leftOver;
+                }
+
+                if(result >= 10) {
+                    sb.append(result%10);
+                    leftOver = result / 10;
+                }
+                else {
+                    sb.append(result);
+                    leftOver = 0;
+                }
+                if(i == 0 && leftOver != 0) {
+                    sb.append(leftOver);
+                }
+            }
+            sb.reverse();
+            System.out.println(sb);
+        }
+
+    }
+}
