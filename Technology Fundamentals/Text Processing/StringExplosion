@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class StringExplosion {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+      StringBuilder sb = new StringBuilder(sc.nextLine());
+        int explosionStrenght = 0;
+        for (int i = 0; i < sb.length(); i++) {
+            char a = sb.charAt(i);
+            if(a == '>') {
+                explosionStrenght += Integer.parseInt("" + sb.charAt(i+1));
+           }
+            if(explosionStrenght != 0 && a != '>') {
+                sb.deleteCharAt(i);
+                explosionStrenght--;
+                i--;
+            }
+
+        }
+        System.out.println(sb);
+    }
+}
