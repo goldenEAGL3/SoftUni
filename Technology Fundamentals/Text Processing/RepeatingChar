@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class ReplacingRepeatingChars {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        StringBuilder sb = new StringBuilder();
+
+        char a = input.charAt(0);
+        sb.append(a);
+        for (int i = 1; i < input.length(); i++) {
+
+            char b = input.charAt(i);
+
+            if (a != b) {
+                sb.append(b);
+                a = b;
+            }
+        }
+        System.out.println(sb);
+
+    }
+}
