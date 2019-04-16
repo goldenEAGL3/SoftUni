@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Furniture {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String regex = "^[>]{2}(?<furniture>[A-Za-z]+)[<]{2}(?<price>[0-9]+\\.?[0-9]+)!(?<quantity>[0-9]+)$";
+
+        String input = sc.nextLine();
+        Pattern pattern = Pattern.compile(regex);
+
+        List<String> myFurniture = new ArrayList<>();
+        double totalSum = 0;
+        while (!"Purchase".equals(input)) {
+            Matcher matcher = pattern.matcher(input);
+            double currentSum = 0;
+
+            if (matcher.find()) {
+                myFurniture.add(matcher.group("furniture"));
+
+                currentSum = Double.parseDouble(matcher.group("price")) * Double.parseDouble(matcher.group("quantity"));
+
+
+            }
+            totalSum += currentSum;
+            input = sc.nextLine();
+        }
+        System.out.println("Bought furniture:");
+        for (String s : myFurniture) {
+            System.out.println(s);
+        }
+        System.out.printf("Total money spend: %.2f", totalSum);
+    }
+}
