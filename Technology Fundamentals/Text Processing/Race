@@ -1,0 +1,63 @@
+    import java.util.*;
+    import java.util.regex.Matcher;
+    import java.util.regex.Pattern;
+    import java.util.stream.Collectors;
+
+    public class Race {
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+
+            String input = sc.nextLine();
+            String regex1 = "[A-Z][a-z]+";
+
+            Pattern pattern = Pattern.compile(regex1);
+            Matcher matcher = pattern.matcher(input);
+
+            Map<String, Integer> runners = new LinkedHashMap<>();
+            while (matcher.find()) {
+                runners.putIfAbsent(matcher.group(), 0);
+            }
+            String regex2 = "([a-zA-Z])";
+            String regex3 = "[0-9]";
+            pattern = Pattern.compile(regex2);
+
+            Pattern pattern2 = Pattern.compile(regex3);
+
+            input = sc.nextLine();
+            while (!"end of race".equals(input)) {
+                StringBuilder sb = new StringBuilder();
+                matcher = pattern.matcher(input);
+                Matcher matcher2 = pattern2.matcher(input);
+                while (matcher.find()) {
+                    sb.append(matcher.group());
+                }
+                if (runners.containsKey(sb.toString())) {
+                    int km = 0;
+                    while (matcher2.find()) {
+                        km += Integer.parseInt(matcher2.group());
+                    }
+                    runners.put(sb.toString(), runners.get(sb.toString()) + km);
+                }
+                input = sc.nextLine();
+            }
+
+            runners = runners.entrySet()
+                    .stream()
+                    .sorted((a, b) -> Integer.compare(b.getValue(), a.getValue()))
+                    .limit(3)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, LinkedHashMap::new));
+
+            int index = 1;
+            for (String kvp : runners.keySet()) {
+                if (index == 1) {
+                    System.out.printf("1st place: %s%n", kvp);
+                } else if (index == 2) {
+                    System.out.printf("2nd place: %s%n", kvp);
+                } else if (index == 3) {
+                    System.out.printf("3rd place: %s", kvp);
+                }
+                index++;
+
+            }
+        }
+    }
