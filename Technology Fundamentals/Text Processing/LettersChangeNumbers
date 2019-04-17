@@ -1,0 +1,51 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class LettersChangeNumbers {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] input = sc.nextLine().split("\\s+");
+        String regexLetters = "[A-Za-z]";
+        String regexNumbers = "\\d+";
+        Pattern patternLetters = Pattern.compile(regexLetters);
+        Pattern patternNumbers = Pattern.compile(regexNumbers);
+        double totalSum = 0;
+        for (int i = 0; i < input.length; i++) {
+
+            String currentString = input[i];
+            Matcher matcherLetters = patternLetters.matcher(currentString);
+            Matcher matcherNumbers = patternNumbers.matcher(currentString);
+            double number = 0;
+
+            while (matcherNumbers.find()) {
+                number = Double.parseDouble(matcherNumbers.group());
+            }
+            int countMatches = 0;
+
+            while (matcherLetters.find()) {
+                countMatches++;
+                String currentLetter = matcherLetters.group();
+                int currentLetterPosition = currentLetter.toLowerCase().charAt(0) - 96;
+                if (countMatches == 1) {
+                    if (Character.isLowerCase(currentLetter.charAt(0))) {
+                        number *= currentLetterPosition;
+                    } else {
+                        number /= currentLetterPosition;
+                    }
+                } else if (countMatches == 2) {
+                    if (Character.isLowerCase(currentLetter.charAt(0))) {
+                        number += currentLetterPosition;
+                    } else {
+                        number -= currentLetterPosition;
+                    }
+                }
+            }
+            totalSum += number;
+
+
+        }
+        System.out.printf("%.2f", totalSum);
+    }
+}
