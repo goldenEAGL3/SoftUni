@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StarSigma {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int numMessages = Integer.parseInt(sc.nextLine());
+        String enigma = "star";
+        String regex = "[?<=@](?<planet>[A-Za-z]+)" +
+                "(?:[^@\\-!:>]*):(?<population>\\d+)" +
+                "(?:[^@\\-!:>]*)!(?<attackType>A|D)!" +
+                "(?:[^@\\-!:>]*)->(?<soldiers>\\d+)";
+        List<String> attackedPlanets = new ArrayList<>();
+        List<String> destroyedPlanets = new ArrayList<>();
+        for (int i = 0; i < numMessages; i++) {
+            String input = sc.nextLine();
+            int count = 0;
+            for (int i1 = 0; i1 < input.length(); i1++) {
+                String help = "" + input.charAt(i1);
+
+                if (enigma.contains(help.toLowerCase())) {
+                    count++;
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i1 = 0; i1 < input.length(); i1++) {
+                int a = input.charAt(i1) - count;
+                sb.append((char) a);
+            }
+
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(sb.toString());
+
+            if (matcher.find()) {
+                String planet = matcher.group("planet");
+                int population = Integer.parseInt(matcher.group("population"));
+                String attackType = matcher.group("attackType");
+                int numSoldiers = Integer.parseInt(matcher.group("soldiers"));
+
+                if ("A".equals(attackType)) {
+                    attackedPlanets.add(planet);
+                } else if ("D".equals(attackType)) {
+                    destroyedPlanets.add(planet);
+                }
+
+            }
+
+        }
+
+
+        System.out.printf("Attacked planets: %d%n", attackedPlanets.size());
+        if (attackedPlanets.size() != 0) {
+            attackedPlanets
+                    .stream()
+                    .sorted(String::compareTo).forEach(planet -> {
+                System.out.printf("-> %s%n", planet);
+            });
+
+
+        }
+        System.out.printf("Destroyed planets: %d%n", destroyedPlanets.size());
+        if(destroyedPlanets.size() != 0) {
+            destroyedPlanets
+                    .stream()
+                    .sorted(String::compareTo).forEach(planet -> {
+                System.out.printf("-> %s%n", planet);
+            });
+
+        }
+    }
+}
