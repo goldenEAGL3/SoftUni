@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ExtractPersonalInfo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int numLines = Integer.parseInt(sc.nextLine());
+//        String regex = "(?<=@)(?<name>[A-Za-z]+)\\|.*?#(?<age>\\d+)\\*";
+        String regex = "(?<=@)(?<name>[^@|]+)\\|.*?#(?<age>\\d+)\\*";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        for (int i = 0; i < numLines; i++) {
+            String input = sc.nextLine();
+            Matcher matcher = pattern.matcher(input);
+            String name = "";
+            int age = 0;
+
+            while (matcher.find()) {
+                name = matcher.group("name");
+                age = Integer.parseInt(matcher.group("age"));
+            }
+            System.out.printf("%s is %d years old.%n", name, age);
+        }
+    }
+}
