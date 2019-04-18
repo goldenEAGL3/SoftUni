@@ -1,0 +1,37 @@
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TreasureFinder {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int[] key = Arrays.stream(sc.nextLine().split("\\s+")).mapToInt(Integer:: parseInt).toArray();
+//        String regex = "&(?<type>[A-Za-z\\d]+)&.*?<(?<coordinates>[A-Za-z\\d]+)>";
+        String regex = "&(?<type>[^&]+)&.*?<(?<coordinates>[^<>]+)>";
+        Pattern pattern = Pattern.compile(regex);
+        String input = sc.nextLine();
+        while (!"find".equals(input)) {
+            int keyIndex = 0;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < input.length(); i++) {
+                sb.append((char)(input.charAt(i) - key[keyIndex]));
+                keyIndex++;
+                if (keyIndex == key.length) {
+                    keyIndex = 0;
+                }
+
+            }
+            Matcher matcher = pattern.matcher(sb.toString());
+            String type = "";
+            String coordinates = "";
+            while(matcher.find()) {
+                type = matcher.group("type");
+                coordinates = matcher.group("coordinates");
+            }
+            System.out.printf("Found %s at %s%n", type, coordinates);
+            input = sc.nextLine();
+        }
+    }
+}
