@@ -1,0 +1,57 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RageQuit {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String regex = "(?<rageString>[^\\d]*?)(?<rageCount>\\d+)";
+        String input = sc.nextLine();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        StringBuilder sb = new StringBuilder();
+        List<Character> asciiCharacters = new ArrayList<>();
+
+        int asciiCode = 47;
+        int count = 1;
+        for (int i = 32; i <= asciiCode ; i++) {
+            asciiCharacters.add((char)i);
+            if(i == asciiCode && count == 1) {
+                i = 57;
+                asciiCode = 96;
+                count++;
+            }
+            if(i == asciiCode && count == 2) {
+                i = 122;
+                asciiCode = 126;
+                count++;
+            }
+        }
+       
+        int uniqueSymbols = 0;
+        while (matcher.find()) {
+            String rageQuit = matcher.group("rageString").toUpperCase();
+            int num = Integer.parseInt(matcher.group("rageCount"));
+            if(num == 0) {
+                continue;
+            }
+            for (int i = 0; i < rageQuit.length(); i++) {
+                if(asciiCharacters.contains(rageQuit.charAt(i))) {
+                    int index = asciiCharacters.indexOf(rageQuit.charAt(i));
+                    asciiCharacters.remove(index);
+                    uniqueSymbols++;
+                                   }
+            }
+            for (int i = 0; i < num; i++) {
+                sb.append(rageQuit);
+            }
+        }
+        System.out.printf("Unique symbols used: %d%n%s", uniqueSymbols, sb.toString());
+        System.out.println();
+    }
+}
