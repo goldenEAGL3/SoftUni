@@ -1,0 +1,48 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int numEggsFirstPlayer = Integer.parseInt(sc.nextLine());
+        int numEggsSecPlayer = Integer.parseInt(sc.nextLine());
+
+        boolean playerOneRanOutOfEggs = false;
+        boolean playerTwoRanOutOfEggs = false;
+
+        String input = sc.nextLine();
+        while(!"End of battle".equals(input)) {
+
+            switch(input){
+                case "one":
+                    numEggsSecPlayer--;
+                    if(numEggsSecPlayer == 0) {
+                        playerTwoRanOutOfEggs = true;
+                    }
+                    break;
+
+                case "two":
+                    numEggsFirstPlayer--;
+                    if(numEggsFirstPlayer == 0) {
+                        playerOneRanOutOfEggs = true;
+                    }
+                    break;
+            }
+            if(playerOneRanOutOfEggs || playerTwoRanOutOfEggs){
+                break;
+            }
+            input = sc.nextLine();
+        }
+        if(playerOneRanOutOfEggs) {
+            System.out.printf("Player one is out of eggs. Player two has %d eggs left.", numEggsSecPlayer);
+        } else if(playerTwoRanOutOfEggs) {
+            System.out.printf("Player two is out of eggs. Player one has %d eggs left.", numEggsFirstPlayer);
+        } else {
+            System.out.printf("Player one has %d eggs left.%n", numEggsFirstPlayer);
+            System.out.printf("Player two has %d eggs left.", numEggsSecPlayer);
+        }
+    }
+}
