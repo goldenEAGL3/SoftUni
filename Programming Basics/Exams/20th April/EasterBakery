@@ -1,0 +1,28 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        double priceFlourPerKilogram = Double.parseDouble(sc.nextLine());
+        double flourKG = Double.parseDouble(sc.nextLine());
+        double sugarKG = Double.parseDouble(sc.nextLine());
+        int numKori = Integer.parseInt(sc.nextLine());
+        int numMaya = Integer.parseInt(sc.nextLine());
+
+        double priceSugarPerKG = priceFlourPerKilogram * 0.75;
+        double priceEggsForKora = priceFlourPerKilogram * 1.1;
+        double priceMaya = priceSugarPerKG * 0.2;
+
+        double priceFlour = priceFlourPerKilogram * flourKG;
+        double priceSugar = priceSugarPerKG * sugarKG;
+        double priceEggs = priceEggsForKora * numKori;
+        double priceMayaAll = numMaya * priceMaya;
+
+        double allPrice = priceFlour + priceSugar + priceEggs + priceMayaAll;
+        System.out.printf("%.2f", allPrice);
+    }
+}
