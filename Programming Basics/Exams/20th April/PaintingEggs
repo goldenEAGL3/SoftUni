@@ -1,0 +1,61 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String eggSize = sc.nextLine();
+        String eggColor = sc.nextLine();
+        int num = Integer.parseInt(sc.nextLine());
+        double price = 0;
+        if ("Red".equals(eggColor)) {
+            switch (eggSize) {
+                case "Large":
+                    price = 16;
+                    break;
+
+                case "Medium":
+                    price = 13;
+                    break;
+
+                case "Small":
+                    price = 9;
+                    break;
+            }
+        } else if ("Green".equals(eggColor)) {
+            switch (eggSize) {
+                case "Large":
+                    price = 12;
+                    break;
+
+                case "Medium":
+                    price = 9;
+                    break;
+
+                case "Small":
+                    price = 8;
+                    break;
+            }
+        } else if ("Yellow".equals(eggColor)) {
+            switch (eggSize) {
+                case "Large":
+                    price = 9;
+                    break;
+
+                case "Medium":
+                    price = 7;
+                    break;
+
+                case "Small":
+                    price = 5;
+                    break;
+            }
+        }
+        double finalPrice = (price * num)*0.65;
+        System.out.printf("%.2f leva.", finalPrice);
+
+    }
+}
