@@ -1,0 +1,30 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int numGuests = Integer.parseInt(sc.nextLine());
+        double priceKuvertPerPerson = Double.parseDouble(sc.nextLine());
+        double budget = Double.parseDouble(sc.nextLine());
+
+
+
+        if(numGuests >= 10 && numGuests <=15) {
+            priceKuvertPerPerson *= 0.85;
+        } else if( numGuests > 15 && numGuests <= 20) {
+            priceKuvertPerPerson *= 0.8;
+        } else if (numGuests > 20) {
+            priceKuvertPerPerson *= 0.75;
+        }
+        double price = priceKuvertPerPerson * numGuests + budget / 10;
+        if(budget - price >= 0) {
+            System.out.printf("It is party time! %.2f leva left.", budget - price);
+        } else {
+            System.out.printf("No party! %.2f leva needed.", price - budget);
+        }
+    }
+}
