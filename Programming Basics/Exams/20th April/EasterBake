@@ -1,0 +1,42 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int numBread = Integer.parseInt(sc.nextLine());
+        int maxSugar = 0;
+        int maxFlour = 0;
+        int sumSugar = 0;
+        int sumFlour = 0;
+        for (int i = 0; i < numBread; i++) {
+            int sugar = Integer.parseInt(sc.nextLine());
+            int flour = Integer.parseInt(sc.nextLine());
+
+            sumSugar += sugar;
+            sumFlour +=flour;
+
+            if(sugar > maxSugar) {
+                maxSugar = sugar;
+            }
+            if(flour > maxFlour) {
+                maxFlour = flour;
+            }
+        }
+
+        double numPackagesSugar = Math.ceil(sumSugar *1.0  / 950);
+        double numPackagesFlour = Math.ceil(sumFlour *1.0  / 750);
+
+        System.out.printf("Sugar: %.0f%n" +
+                "Flour: %.0f%n" +
+                "Max used flour is %d grams, max used sugar is %d grams.",
+                numPackagesSugar,
+                numPackagesFlour,
+                maxFlour,
+                maxSugar);
+
+    }
+}
