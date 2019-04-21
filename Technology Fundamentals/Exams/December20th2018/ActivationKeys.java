@@ -11,7 +11,6 @@ public class ActivationKeys {
         Scanner sc = new Scanner(System.in);
 
         String regex = "(^|&)(?<symbols25>[\\dA-Za-z]{25})|(?<symbols16>[\\dA-Za-z]{16})(?:&|$)";
-
         String[] input = sc.nextLine().split("&");
         Pattern pattern = Pattern.compile(regex);
         List<StringBuilder> myList = new ArrayList<>();
