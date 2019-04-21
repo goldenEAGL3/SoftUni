@@ -55,7 +55,6 @@ public class VaporWinterSale {
                 for (String s : helpList) {
                     outerLoop.getValue().get(newKey).add(s);
                 }
-
             }
         }
         myGames.entrySet()
