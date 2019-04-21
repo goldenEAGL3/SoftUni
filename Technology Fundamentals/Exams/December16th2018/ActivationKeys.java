@@ -62,12 +62,8 @@ public class ActivationKeys {
                     }
                 }
                 myList.add(sb);
-
             }
         }
-
-
-
         System.out.print(String.join(", ", myList));
     }
 }
