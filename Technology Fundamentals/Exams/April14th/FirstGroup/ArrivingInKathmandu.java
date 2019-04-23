@@ -13,7 +13,6 @@ public class ArrivingInKathmandu {
         String regex = "^(?<peak>[A-Za-z\\d!@#$?]+)=(?<length>\\d+)<<(?<geohashcode>.*)$";
         Pattern pattern = Pattern.compile(regex);
 
-
         while (!"Last note".equals(message)) {
             Matcher matcher = pattern.matcher(message);
             if (matcher.find()) {
