@@ -1,0 +1,29 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ArrayCondense {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int[] arr = Arrays.stream(sc.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray(); 
+		
+		
+		int newLength = arr.length-1;
+		while(newLength >= 1) {
+			int[] help = new int[newLength];
+			for(int i = 0; i < help.length ; i++) {
+				help[i] = arr[i] + arr[i+1];
+			}
+						
+			arr = help.clone();
+			newLength--;
+		}
+		
+		for(int elem: arr) {
+			System.out.print(elem);
+		}
+
+	}
+
+}
