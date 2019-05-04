@@ -1,0 +1,31 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ArrayEvenOddSubtraction {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int arr[] = Arrays.stream(sc.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray(); 
+		int arr2[] = Arrays.stream(sc.nextLine().split(" ")).mapToInt(e -> Integer.parseInt(e)).toArray(); 
+		
+		int sum = 0;
+		boolean identical = true;
+		int maxLength = 0;
+		
+		if(arr.length > arr2.length) maxLength = arr.length;
+		else maxLength = arr2.length;
+		
+		for(int i = 0; i < maxLength; i++) {
+			sum+=arr[i];
+			if(arr[i] != arr2[i]) {
+				System.out.printf("Arrays are not identical. Found difference at %d index.", i);
+				identical = false;
+				break;
+			}
+					}
+			if(identical) {
+			System.out.printf("Arrays are identical. Sum: %d", sum);
+		}
+	}
+}

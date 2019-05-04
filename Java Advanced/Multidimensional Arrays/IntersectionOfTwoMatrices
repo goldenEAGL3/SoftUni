@@ -1,0 +1,58 @@
+package MultidimensionalArrays;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Probe {
+    static Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+
+        int rows = Integer.parseInt(sc.nextLine());
+        int cols = Integer.parseInt(sc.nextLine());
+
+        char[][] firstMatrix = readMatrix(rows, cols);
+        char[][] sectMatrix = readMatrix(rows, cols);
+        char[][] intersectedMatrix = intersectionOfMatrices(firstMatrix, sectMatrix);
+
+        printMatrix(intersectedMatrix);
+    }
+
+    private static char[][] readMatrix(int rows, int cols) {
+
+        char[][] matrix = new char[rows][cols];
+
+        for (int i = 0; i < matrix.length; i++) {
+            String[] arr = sc.nextLine().split("\\s+");
+            for (int z = 0; z < arr.length; z++) {
+                matrix[i][z] = arr[z].charAt(0);
+            }
+
+        }
+        return matrix;
+    }
+
+    private static char[][] intersectionOfMatrices(char[][] firstMatrix, char[][] secondMatrix) {
+        char[][] matrix = new char[firstMatrix.length][firstMatrix[0].length];
+        for (int i = 0; i < firstMatrix.length; i++) {
+            for (int j = 0; j < firstMatrix[i].length; j++) {
+                if (firstMatrix[i][j] == secondMatrix[i][j]) {
+                    matrix[i][j] = firstMatrix[i][j];
+                } else {
+                    matrix[i][j] = '*';
+                }
+            }
+        }
+
+        return matrix;
+    }
+
+    private static void printMatrix(char[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+}

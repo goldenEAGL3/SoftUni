@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class Train {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int numTrains = Integer.parseInt(sc.nextLine());
+		int[] arr = new int[numTrains];
+		int sum = 0;
+		for(int i = 0; i < numTrains; i++) {
+			arr[i] = Integer.parseInt(sc.nextLine());
+			sum += arr[i];
+		}
+		for(int elem: arr) {
+			System.out.print(elem + " ");
+		}
+		System.out.println();
+		System.out.println(sum);
+			
+
+	}
+
+}
