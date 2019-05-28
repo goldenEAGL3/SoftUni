@@ -38,7 +38,4 @@ public class CarInfo {
     public String getInfo() {
         return String.format("The car is: %s %s - %d HP.", this.make, this.model, this.horsePower);
     }
-
-
-
 }
