@@ -1,5 +1,4 @@
 package Classes.CarInfo;
-
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
