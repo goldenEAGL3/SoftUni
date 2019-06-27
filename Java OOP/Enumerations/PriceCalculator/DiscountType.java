@@ -11,6 +11,7 @@ public enum DiscountType {
         this.discount = discount;
     }
 
+    
     public double getDiscount() {
         return this.discount / 100.0;
     }
