@@ -1,0 +1,62 @@
+--  TOP 5 EMPLOYEES QUERY --
+
+SELECT 
+concat_ws(' ', e.first_name, e.last_name) AS `name`,
+DATE_FORMAT(e.started_on, "%Y-%m-%d %T") AS `started_on`,
+COUNT(e_c.client_id) as `count_of_clients`
+FROM `employees` e
+JOIN `employees_clients` e_c
+ON e.id = e_c.employee_id
+GROUP BY e_c.employee_id
+ORDER BY `count_of_clients` DESC, e_c.employee_id
+LIMIT 5;
+
+--  BRANCH CARDS QUERY --
+
+SELECT br.name, COUNT(
+c.id
+) AS `count_of_cards`
+FROM branches br
+LEFT JOIN employees e
+ON e.branch_id = br.id
+LEFT JOIN employees_clients e_c
+ON e.id = e_c.employee_id
+LEFT JOIN clients cl
+ON e_c.client_id = cl.id
+LEFT JOIN bank_accounts b_a
+ON cl.id = b_a.client_id
+LEFT JOIN cards c
+ON b_a.id = c.bank_account_id
+GROUP BY br.name
+ORDER BY `count_of_cards` DESC, br.name;
+
+--  EXTRACT CARDS' COUNT FUNCTION --
+
+// DELIMITER $$
+CREATE FUNCTION udf_client_cards_count(name VARCHAR(30))  
+	RETURNS INT   
+		BEGIN         
+			DECLARE result INT;        
+			SET result := (SELECT COUNT(c.id) AS `cards` 
+			FROM clients cl    
+			JOIN bank_accounts b_a  
+			ON cl.id = b_a.client_id  
+			JOIN cards c  
+			ON b_a.id = c.bank_account_id 
+			WHERE cl.full_name = name);  
+			RETURN RESULT; 
+ END;
+ 
+ --  CLIENT INFO PROCEDURE --
+ 
+ // DELIMITER $$
+ CREATE PROCEDURE udp_clientinfo(full_name VARCHAR(50))
+	BEGIN
+			SELECT cl.full_name, cl.age, b_a.account_number, CONCAT('$', b_a.balance) AS 'balance'
+			FROM clients cl
+			LEFT JOIN bank_accounts b_a
+			ON cl.id = b_a.client_id
+			WHERE cl.full_name = full_name;
+    END;
+ 
+ 
