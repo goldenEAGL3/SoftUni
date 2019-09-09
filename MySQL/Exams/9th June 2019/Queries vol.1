@@ -1,0 +1,53 @@
+--  INSERT QUERY --
+
+INSERT INTO `cards` 
+(card_number, card_status, bank_account_id) 
+SELECT
+	(SELECT REVERSE(c.full_name)) AS `card_number`,
+    'Active' AS `card_status`,
+    (SELECT c.id) AS `bank_account_id`
+FROM `clients` AS c
+WHERE c.id BETWEEN 191 AND 200;
+
+--  UPDATE QUERY --
+
+UPDATE `employees_clients` e_c
+SET e_c.employee_id = (SELECT employee_id
+			FROM (SELECT employee_id, COUNT(client_id) as `clients_count`
+			FROM employees_clients
+			GROUP BY employee_id
+			ORDER BY `clients_count`, employee_id
+			LIMIT 1) AS `employee`)
+WHERE e_c.client_id = e_c.employee_id AND e_c.client_id > 0;
+
+--  DELETE QUERY --
+
+DELETE FROM employees 
+WHERE id NOT IN (SELECT employee_id
+FROM employees_clients) AND id > 0;
+
+--  CLIENTS QUERY --
+
+SELECT id, full_name
+FROM `clients` 
+ORDER BY id;
+
+--  NEWBIES QUERY --
+
+SELECT e.id, 
+CONCAT_WS(' ', e.first_name, last_name) AS `full_name`,
+CONCAT('$', e.salary) AS `salary`,
+DATE_FORMAT(e.started_on, "%Y-%m-%d %T") AS `started_on`
+FROM `employees` e
+WHERE e.salary > 100000 AND DATE(e.started_on) > '2018/01/01'
+ORDER BY `salary` DESC, e.id;
+
+--  CARDS AGAINST HUMANITY QUERY --
+
+SELECT c.id, CONCAT(c.card_number, ' : ', cl.full_name) AS `card_token`
+FROM `cards` c
+JOIN `bank_accounts` b_a
+ON c.bank_account_id = b_a.id
+JOIN `clients` cl
+ON b_a.client_id = cl.id
+ORDER BY c.id DESC;
