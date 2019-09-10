@@ -1,0 +1,111 @@
+--  EXTRACT FASTEST SHIP QUERY  --
+
+SELECT ss.name, sp.name
+FROM spaceships ss
+JOIN journeys j
+ON ss.id = j.spaceship_id
+JOIN spaceports sp
+ON j.destination_spaceport_id = sp.id
+ORDER BY ss.light_speed_rate DESC
+LIMIT 1;
+
+--  EXTRACT PILOTS YOUNGER THAN 30 YEARS QUERY  --
+
+SELECT ss.name, ss.manufacturer
+FROM spaceships ss 
+JOIN journeys j
+ON ss.id = j.spaceship_id
+JOIN travel_cards tc
+ON j.id = tc.journey_id
+JOIN colonists c
+ON tc.colonist_id = c.id
+WHERE c.birth_date BETWEEN (DATE_SUB('2019-01-01', INTERVAL 30 YEAR)) AND '2019/01/01' AND tc.job_during_journey = 'Pilot'
+GROUP BY ss.name
+ORDER by ss.name;
+
+--  EXTRACT ALL EDUCATIONAL MISSIONS QUERY  --
+
+SELECT p.name, sp.name
+FROM planets p
+JOIN spaceports sp 
+ON p.id = sp.planet_id
+JOIN journeys j
+ON sp.id = j.destination_spaceport_id
+WHERE j.purpose = 'Educational'
+ORDER BY sp.name DESC;
+
+--  EXTRACT PLANETS AND THEIR JOURNEY COUNT QUERY  --
+
+SELECT p.name, COUNT(j.id) AS `journeys_count`
+FROM planets p
+JOIN spaceports sp 
+ON p.id = sp.planet_id
+JOIN journeys j
+ON sp.id = j.destination_spaceport_id
+GROUP BY p.name
+ORDER BY `journeys_count` DESC, p.name;
+
+--  EXTRACT THE SHORTEST JOURNEY QUERY  --
+
+SELECT j.id, p.name AS `planet_name`, sP.name AS `spaceport_name`, j.purpose AS `journey_purpose`
+FROM journeys j
+JOIN spaceports sp
+ON j.destination_spaceport_id = sp.id
+JOIN planets p
+ON sp.planet_id = p.id
+ORDER BY DATEDIFF(j.journey_end, j.journey_start)
+LIMIT 1;
+
+--  EXTRACT THE LEAST POPULAR JOB QUERY  --
+
+
+SELECT tc.job_during_journey AS `job_name`
+FROM travel_cards tc
+JOIN journeys j
+ON tc.journey_id = j.id
+WHERE j.id = (SELECT id
+FROM journeys
+ORDER BY DATEDIFF(journey_end, journey_start) DESC
+LIMIT 1)
+GROUP BY `job_name`
+ORDER BY COUNT(tc.colonist_id)
+LIMIT 1;
+
+--  GET COLONIST COUNT FUNCTION  --
+
+CREATE FUNCTION udf_count_colonists_by_destination_planet(planet_name VARCHAR(30))
+	RETURNS INT
+		BEGIN
+			DECLARE result INT;
+            SET result := (SELECT COUNT(c.id)
+            FROM colonists c
+            JOIN travel_cards tc
+            ON c.id = tc.colonist_id
+            JOIN journeys j
+            ON tc.journey_id = j.id
+            JOIN spaceports sp 
+            ON j.destination_spaceport_id = sp.id
+            JOIN planets p
+            ON sp.planet_id = p.id
+            WHERE p.name = planet_name);
+            RETURN result;
+        END;
+
+--  MODIFY SPACESHIP PROCEDURE  --
+
+CREATE PROCEDURE udp_modify_spaceship_light_speed_rate(spaceship_name VARCHAR(50), light_speed_rate_increse INT)
+	BEGIN
+	START TRANSACTION;
+    IF spaceship_name NOT IN (SELECT sp.name FROM spaceships sp) THEN 
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Spaceship you are trying to modify does not exists.';
+            ROLLBACK;
+	ELSE UPDATE spaceships sp
+    SET sp.light_speed_rate = sp.light_speed_rate + light_speed_rate_increse
+    WHERE sp.name = spaceship_name AND sp.id > 0;
+    END IF;
+    END;
+
+
+
+
