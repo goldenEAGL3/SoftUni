@@ -1,0 +1,76 @@
+--  INSERT QUERY  --
+
+INSERT INTO `travel_cards`
+(card_number, job_during_journey, colonist_id, journey_id)
+SELECT
+	(SELECT CASE 
+		WHEN DATE(c.birth_date) > '1980/01/01' THEN CONCAT(EXTRACT(YEAR FROM c.birth_date), EXTRACT(DAY FROM c.birth_date), SUBSTRING(c.ucn, 1, 4))
+        ELSE CONCAT(EXTRACT(YEAR FROM c.birth_date), EXTRACT(MONTH FROM c.birth_date), SUBSTRING(c.ucn, CHAR_LENGTH(c.ucn) - 3, 4))
+	END),
+    IF(c.id % 2 = 0, 'Pilot', IF(c.id % 3 = 0, 'Cook', 'Engineer')),
+    c.id,
+    LEFT(c.ucn, 1)
+    
+FROM colonists c
+WHERE c.id BETWEEN 96 AND 100
+
+--  UPDATE QUERY  --
+
+UPDATE journeys j
+SET j.purpose = (IF(j.id % 2 = 0, 'Medical', 
+IF(j.id % 3 = 0, 'Technical', 
+IF(j.id % 5 = 0, 'Educational', 
+IF(j.id % 7 = 0, 'Military', j.purpose)))))
+WHERE j.id > 0;
+
+--  DELETE QUERY  --
+
+DELETE FROM colonists
+WHERE colonists.id NOT IN (SELECT colonist_id 
+FROM travel_cards) 
+AND colonists.id > 0;
+
+--  EXTRACT ALL TRAVEL CARDS QUERY  --
+SELECT card_number, job_during_journey 
+FROM travel_cards
+ORDER BY card_number;
+
+
+--  EXTRACT ALL COLONISTS QUERY  --
+
+SELECT id, CONCAT_WS(' ', first_name, last_name) AS `full_name`, ucn
+FROM colonists
+ORDER BY first_name, last_name, id;
+
+--  EXTRACT ALL MILITARY JOURNEYS QUERY  --
+
+SELECT id, journey_start, journey_end
+FROM journeys
+WHERE purpose = 'Military'
+ORDER BY journey_start;
+
+--  EXTRACT ALL PILOTS QUERY  --
+
+SELECT c.id, CONCAT_WS(' ', c.first_name, c.last_name)  AS `full_name`
+FROM colonists c
+JOIN travel_cards tc
+ON c.id = tc.colonist_id
+WHERE tc.job_during_journey = 'Pilot'
+ORDER BY c.id;
+
+--  COUNT ALL COLONISTS QUERY  --
+
+SELECT COUNT(c.id) AS `count`
+FROM colonists  c
+JOIN travel_cards tc
+ON c.id = tc.colonist_id
+JOIN journeys j
+ON tc.journey_id = j.id
+WHERE j.purpose = 'Technical'
+
+
+
+
+
+
+
