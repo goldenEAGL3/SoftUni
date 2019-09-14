@@ -1,0 +1,138 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class ListManipulationAdvanced {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		List<Integer> myList1 = Arrays.stream(sc.nextLine().split("\\s+"))
+								.map(Integer:: parseInt)
+								.collect(Collectors.toList());
+		String command = sc.nextLine();
+		
+		while(!"end".equals(command)) {
+			List<String> stringList = Arrays.stream(command.split("\\s+")).collect(Collectors.toList()); 
+			
+			if("Contains".equals(stringList.get(0))) {
+				containsElement(stringList, myList1);
+			}
+			
+			else if("Print even".equals(command)) {
+				printEven(myList1);
+				
+			}
+			
+			else if("Print odd".equals(command)) {
+				printOdd(myList1);
+				
+			}
+			
+			else if("Get sum".equals(command)) {
+				double sum = 0;
+				for(int i = 0; i < myList1.size(); i++) {
+					sum += myList1.get(i);
+				}
+				System.out.printf("%.0f%n", sum);
+				
+			}
+			else {
+				List<Integer> mySpecialList = new ArrayList<>();
+				if(">=".equals(stringList.get(1))) {
+					filterEqualOrBigger(myList1, stringList, mySpecialList);
+					
+				}
+				else if("<=".equals(stringList.get(1))) {
+					
+					filterLessThanOrEqualInteger(myList1, stringList, mySpecialList);
+				}
+				else if("<".equals(stringList.get(1))) {
+					filterLessThanInteger(myList1, stringList, mySpecialList);
+				}
+				
+				else if(">".equals(stringList.get(1))) {
+					filterBiggerThanInteger(myList1, stringList, mySpecialList);
+				}
+				
+			}
+			
+			command = sc.nextLine();
+		}
+
+	}
+
+	public static void filterBiggerThanInteger(List<Integer> myList1, List<String> stringList,
+			List<Integer> mySpecialList) {
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) > Integer.parseInt(stringList.get(2))) {
+				mySpecialList.add(myList1.get(i));
+			}
+		}
+		System.out.println(mySpecialList.toString().replaceAll("\\[|,|\\]", ""));
+	}
+
+	public static void filterLessThanInteger(List<Integer> myList1, List<String> stringList,
+			List<Integer> mySpecialList) {
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) < Integer.parseInt(stringList.get(2))) {
+				mySpecialList.add(myList1.get(i));
+			}
+		}
+		System.out.println(mySpecialList.toString().replaceAll("\\[|,|\\]", ""));
+	}
+
+	public static void filterLessThanOrEqualInteger(List<Integer> myList1, List<String> stringList,
+			List<Integer> mySpecialList) {
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) <= Integer.parseInt(stringList.get(2))) {
+				mySpecialList.add(myList1.get(i));
+			}
+		}
+		System.out.println(mySpecialList.toString().replaceAll("\\[|,|\\]", ""));
+	}
+
+	public static void filterEqualOrBigger(List<Integer> myList1, List<String> stringList,
+			List<Integer> mySpecialList) {
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) >= Integer.parseInt(stringList.get(2))) {
+				mySpecialList.add(myList1.get(i));
+			}
+		}
+		System.out.println(mySpecialList.toString().replaceAll("\\[|,|\\]", ""));
+	}
+
+	public static void containsElement(List<String> stringList, List<Integer> myList1) {
+		if(myList1.contains(Integer.parseInt(stringList.get(1)))) {
+			System.out.println("Yes");
+		}
+		else {
+			System.out.println("No such number");
+		}
+	}
+
+	public static void printOdd(List<Integer> myList1) {
+		List<Integer> myOddList = new ArrayList<>();
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) % 2 != 0) {
+				myOddList.add(myList1.get(i));
+				
+			}
+		}
+		System.out.println(myOddList.toString().replaceAll("[\\[\\],]", ""));
+	}
+
+	public static void printEven(List<Integer> myList1) {
+		List<Integer> myEvenList = new ArrayList<>();
+		for(int i = 0; i < myList1.size(); i++) {
+			if(myList1.get(i) % 2 == 0) {
+				myEvenList.add(myList1.get(i));
+				
+			}
+		}
+		System.out.println(myEvenList.toString().replaceAll("[\\[\\],]", ""));
+	}
+
+}

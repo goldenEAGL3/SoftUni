@@ -1,0 +1,71 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class TakeSkipRope {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String input = sc.nextLine();
+		
+		List<Integer> myDigits = new ArrayList<>();
+		List<String> myNonDigits = new ArrayList<>();
+		for(int i = 0; i < input.length() ; i++) {
+			
+			if(Character.isDigit(input.charAt(i))) {
+				myDigits.add(Integer.parseInt("" + input.charAt(i)));
+				input = removeCharAt(input,i);
+				
+				i--;
+			}
+			else {
+				myNonDigits.add("" + input.charAt(i));
+			}
+		}
+		
+		List<Integer> takeList = new ArrayList<>();
+		List<Integer> skipList = new ArrayList<>();
+		
+		for(int i = 0; i < myDigits.size(); i++) {
+			
+			if(i % 2 == 0) {
+				takeList.add(myDigits.get(i));
+			}
+			
+			else {
+				
+				skipList.add(myDigits.get(i));
+			}
+		}
+		
+		
+		int index = 0;
+		int indexOfString = 0;
+		String result = "";
+		while(index < takeList.size()) {
+			
+			int take = takeList.get(index);
+			int skip = skipList.get(index);
+			int count = 0;
+			for(int j = indexOfString; j < myNonDigits.size(); j++) {
+				if(count == take) {
+					break;
+				}
+				else {
+					result += myNonDigits.get(j);
+					count++;
+				}
+			}
+			
+			index++;
+			indexOfString +=take + skip;
+		}
+			
+		System.out.println(result);
+		
+	}
+	public static String removeCharAt(String input, int pos) {
+	      return input.substring(0, pos) + input.substring(pos + 1);
+	   }
+}

@@ -1,0 +1,87 @@
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class BombNumber {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		List<Integer> sequence = Arrays.stream(sc.nextLine()
+				.split("\\s+"))
+				.map(Integer:: parseInt)
+				.collect(Collectors.toList());
+		
+		List<Integer> bombNumber = Arrays.stream(sc.nextLine()
+				.split("\\s+"))
+				.map(Integer:: parseInt)
+				.collect(Collectors.toList());
+		
+		for(int i = 0; i < sequence.size(); i++) {
+			
+			if(sequence.get(i) == bombNumber.get(0)) {
+				
+				
+				int powerOfBomb = bombNumber.get(1);
+				
+				if(i > 0) {
+					
+					if(i - powerOfBomb >=0) {
+						
+						for(int j = i-1; j >= i-powerOfBomb ; j--) {
+							sequence.remove(j);
+					
+						}
+					}
+					else {
+						for(int j = i-1; j >= 0 ; j--) {
+							sequence.remove(j);
+							
+							
+						}
+					}
+					i = sequence.indexOf(bombNumber.get(0));
+					
+					explodingOnRight(sequence, i, powerOfBomb);
+					
+					i--;
+				}
+				else if(i == 0) {
+					explodingOnRight(sequence, i, powerOfBomb);
+					i--;
+				}
+		
+			}
+		}
+		
+		int sum = 0;
+		for(int k = 0; k < sequence.size() ; k++) {
+			sum+=sequence.get(k);
+		}
+		
+		System.out.println(sum);
+	
+	}
+
+	public static void explodingOnRight(List<Integer> sequence, int i, int powerOfBomb) {
+		if(i + powerOfBomb < sequence.size()) {
+			sequence.remove(i);
+			
+			for(int j = i; j < powerOfBomb+i ; j++) {
+				sequence.remove(i);
+			
+			}
+		}
+		else {
+			sequence.remove(i);
+			for(int j = i; j < sequence.size() ; j++) {
+				sequence.remove(i);
+				
+			}
+			
+		}
+	}
+
+}
