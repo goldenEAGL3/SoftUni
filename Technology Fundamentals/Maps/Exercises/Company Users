@@ -1,0 +1,31 @@
+
+import java.util.*;
+
+public class CompanyUsers {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] input = sc.nextLine().split(" -> ");
+        TreeMap<String, List<String>> users = new TreeMap<>();
+        while (!"End".equals(input[0])) {
+            String company = input[0];
+            String id = input[1];
+
+            users.putIfAbsent(company, new ArrayList<>());
+
+            if (!users.get(company).contains(id)) {
+                users.get(company).add(id);
+            }
+
+            input = sc.nextLine().split(" -> ");
+
+        }
+
+        for (Map.Entry<String, List<String>> kvp : users.entrySet()) {
+            System.out.printf("%s%n", kvp.getKey());
+            for (String s : kvp.getValue()) {
+                System.out.printf("-- %s%n", s);
+            }
+        }
+    }
+}

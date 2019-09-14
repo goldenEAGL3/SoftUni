@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Courses {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] input = sc.nextLine().split(" : ");
+        Map<String, List<String>> courses = new LinkedHashMap<>();
+        while (!"end".equals(input[0])) {
+            String courseKey = input[0];
+            String nameValue = input[1];
+
+            courses.putIfAbsent(courseKey, new ArrayList<>());
+            courses.get(courseKey).add(nameValue);
+
+            input = sc.nextLine().split(" : ");
+        }
+
+        courses
+                .entrySet()
+                .stream()
+                .sorted((a, b) -> Integer.compare(b.getValue().size(), a.getValue().size()))
+                .forEach(e1 -> {
+                    System.out.printf("%s: %d%n", e1.getKey(), e1.getValue().size());
+
+                    e1.getValue().stream().sorted((n1,n2) -> n1.compareTo(n2)).forEach(n -> {
+                        System.out.printf("-- %s%n", n);
+                    });
+
+                });
+
+    }
+}

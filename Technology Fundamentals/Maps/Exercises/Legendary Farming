@@ -1,0 +1,117 @@
+import java.util.*;
+
+public class LegendaryFarming {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] input = sc.nextLine().split("\\s+");
+        Map<String, Integer> farmingKeyResourses = new LinkedHashMap<>();
+        Map<String, Integer> farmingJunkResourses = new LinkedHashMap<>();
+        boolean shadowmourne = false;
+        boolean  valanyr = false;
+        boolean dragonwrath = false;
+        farmingKeyResourses.put("shards", 0);
+        farmingKeyResourses.put("fragments", 0);
+        farmingKeyResourses.put("motes", 0);
+
+       while(true) {
+           for (int i = 0; i < input.length-1; i+=2) {
+               String key = input[i+1].toLowerCase();
+               int value = Integer.parseInt(input[i]);
+
+               if("shards".equals(key) || "fragments".equals(key) || "motes".equals(key)) {
+
+                   farmingKeyResourses.put(key, farmingKeyResourses.get(key) + value);
+               }
+               else {
+                   farmingJunkResourses.putIfAbsent(key, 0);
+                   farmingJunkResourses.put(key, farmingJunkResourses.get(key) + value);
+               }
+
+               for (Map.Entry<String, Integer> kvp : farmingKeyResourses.entrySet()) {
+                   if("shards".equals(kvp.getKey()) && kvp.getValue() >= 250 ) {
+                       shadowmourne = true;
+                       kvp.setValue(kvp.getValue()- 250);
+                       break;
+                   }
+                   else if ("fragments".equals(kvp.getKey()) && kvp.getValue() >= 250 ) {
+                       valanyr= true;
+                       kvp.setValue(kvp.getValue()- 250);
+                       break;
+                   }
+                   else if ("motes".equals(kvp.getKey()) && kvp.getValue() >= 250 ) {
+                       dragonwrath = true;
+                       kvp.setValue(kvp.getValue()- 250);
+                       break;
+                   }
+               }
+               if(dragonwrath || valanyr || shadowmourne) {
+                   break;
+               }
+           }
+           if(dragonwrath || valanyr || shadowmourne) {
+               break;
+           }
+           input = sc.nextLine().split("\\s+");
+       }
+
+       if(dragonwrath) {
+           System.out.println("Dragonwrath obtained!");
+           sortingKeyResourses(farmingKeyResourses);
+           sortingJunkMap(farmingJunkResourses);
+
+
+       }
+       else if(shadowmourne) {
+           System.out.println("Shadowmourne obtained!");
+           sortingKeyResourses(farmingKeyResourses);
+           sortingJunkMap(farmingJunkResourses);
+       }
+       else if(valanyr) {
+           System.out.println("Valanyr obtained!");
+           sortingKeyResourses(farmingKeyResourses);
+           sortingJunkMap(farmingJunkResourses);
+       }
+
+    }
+
+    public static void sortingKeyResourses(Map<String, Integer> newMap) {
+//       return  newMap.entrySet()
+//                .stream()
+//                  .sorted((e1,e2) -> {
+//                    int sort = Integer.compare(e2.getValue(), e1.getValue());
+//                    if(sort == 0) {
+//                        sort = e1.getKey().compareTo(e2.getKey());
+//                    }
+//                    return sort;
+//                  }).collect(Collectors.toMap
+//                              (Map.Entry::getKey,
+//                               Map.Entry::getValue,
+//                               (e1, e2) -> e1,
+//                               LinkedHashMap::new));             //This is a way to collect a Map!
+
+        newMap.entrySet()
+                .stream()
+                  .sorted((e1,e2) -> {
+                    int sort = Integer.compare(e2.getValue(), e1.getValue());
+                    if(sort == 0) {
+                        sort = e1.getKey().compareTo(e2.getKey());
+                    }
+                    return sort;
+                  }).forEach(e1 -> {
+            System.out.printf("%s: %d%n", e1.getKey(), e1.getValue());
+        });
+
+    }
+
+    public static void sortingJunkMap(Map<String, Integer> newMap) {
+        newMap
+                .entrySet()
+                    .stream()
+                        .sorted((e1,e2) -> e1.getKey().compareTo(e2.getKey()))
+                            .forEach(e1 -> {
+                                System.out.printf("%s: %d%n", e1.getKey(), e1.getValue());
+                            });
+
+    }
+}

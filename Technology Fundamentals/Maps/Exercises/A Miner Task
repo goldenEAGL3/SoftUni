@@ -1,0 +1,24 @@
+import java.util.LinkedHashMap;
+        import java.util.Map;
+        import java.util.Scanner;
+
+public class MinerTask {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String input = sc.nextLine();
+        int count = 0;
+        Map<String, Integer> myTask = new LinkedHashMap<>();
+        while(!"stop".equals(input)) {
+            count++;
+            int resourse = Integer.parseInt(sc.nextLine());
+            myTask.putIfAbsent(input, 0);
+            myTask.put(input, myTask.get(input) + resourse);
+            input = sc.nextLine();
+        }
+
+        for (Map.Entry<String, Integer> kvp : myTask.entrySet()) {
+            System.out.printf("%s -> %d%n", kvp.getKey(), kvp.getValue());
+        }
+    }
+}
