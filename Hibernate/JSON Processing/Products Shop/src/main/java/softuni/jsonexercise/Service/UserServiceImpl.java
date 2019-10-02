@@ -1,15 +1,13 @@
-package softuni.jsonexercise.Service;
+package softuni.jsonexercise.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.jsonexercise.Service.interfaces.UserService;
+import softuni.jsonexercise.service.interfaces.UserService;
 import softuni.jsonexercise.domain.entities.User;
-import softuni.jsonexercise.dto.queryDTO.query2.UsersWithAtLeastOneProductSoldModelView;
-import softuni.jsonexercise.dto.queryDTO.query4.ProductModelViewDtoQuery4;
-import softuni.jsonexercise.dto.queryDTO.query4.SoldProductsModelViewDtoQuery4;
-import softuni.jsonexercise.dto.queryDTO.query4.UserViewModelDtoQuery4;
-import softuni.jsonexercise.dto.queryDTO.query4.UserViewModelWrapperDtoQuery4;
-import softuni.jsonexercise.dto.seedDTO.UserSeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query2.UsersWithAtLeastOneProductSoldModelView;
+import softuni.jsonexercise.domain.dto.queryDTO.query4.UserViewModelDtoQuery4;
+import softuni.jsonexercise.domain.dto.queryDTO.query4.UserViewModelWrapperDtoQuery4;
+import softuni.jsonexercise.domain.dto.seedDTO.UserSeedDTO;
 import softuni.jsonexercise.repository.UserRepository;
 import softuni.jsonexercise.utils.interfaces.DtoConverter;
 import softuni.jsonexercise.utils.interfaces.ValidationUtil;

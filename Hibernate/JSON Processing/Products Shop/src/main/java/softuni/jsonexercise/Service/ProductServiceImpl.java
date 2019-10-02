@@ -1,13 +1,13 @@
-package softuni.jsonexercise.Service;
+package softuni.jsonexercise.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.jsonexercise.Service.interfaces.ProductService;
+import softuni.jsonexercise.service.interfaces.ProductService;
 import softuni.jsonexercise.domain.entities.Category;
 import softuni.jsonexercise.domain.entities.Product;
 import softuni.jsonexercise.domain.entities.User;
-import softuni.jsonexercise.dto.queryDTO.query1.ProductInRangeModelView;
-import softuni.jsonexercise.dto.seedDTO.ProductSeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query1.ProductInRangeModelView;
+import softuni.jsonexercise.domain.dto.seedDTO.ProductSeedDTO;
 import softuni.jsonexercise.repository.CategoryRepository;
 import softuni.jsonexercise.repository.ProductRepository;
 import softuni.jsonexercise.repository.UserRepository;

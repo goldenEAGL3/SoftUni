@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import softuni.jsonexercise.domain.entities.Product;
 import softuni.jsonexercise.domain.entities.User;
-import softuni.jsonexercise.dto.queryDTO.query1.ProductInRangeModelView;
+import softuni.jsonexercise.domain.dto.queryDTO.query1.ProductInRangeModelView;
 import softuni.jsonexercise.utils.DtoConverterImpl;
 import softuni.jsonexercise.utils.FileUtilImpl;
 import softuni.jsonexercise.utils.ValidationUtilImpl;

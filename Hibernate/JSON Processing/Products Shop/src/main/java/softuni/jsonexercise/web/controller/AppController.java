@@ -5,14 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 import org.springframework.stereotype.Controller;
-import softuni.jsonexercise.Service.interfaces.CategoryService;
-import softuni.jsonexercise.Service.interfaces.ProductService;
-import softuni.jsonexercise.Service.interfaces.UserService;
-import softuni.jsonexercise.dto.queryDTO.query1.ProductInRangeModelView;
-import softuni.jsonexercise.dto.queryDTO.query2.UsersWithAtLeastOneProductSoldModelView;
-import softuni.jsonexercise.dto.seedDTO.CategorySeedDTO;
-import softuni.jsonexercise.dto.seedDTO.ProductSeedDTO;
-import softuni.jsonexercise.dto.seedDTO.UserSeedDTO;
+import softuni.jsonexercise.service.interfaces.CategoryService;
+import softuni.jsonexercise.service.interfaces.ProductService;
+import softuni.jsonexercise.service.interfaces.UserService;
+import softuni.jsonexercise.domain.dto.queryDTO.query1.ProductInRangeModelView;
+import softuni.jsonexercise.domain.dto.seedDTO.CategorySeedDTO;
+import softuni.jsonexercise.domain.dto.seedDTO.ProductSeedDTO;
+import softuni.jsonexercise.domain.dto.seedDTO.UserSeedDTO;
 import softuni.jsonexercise.utils.interfaces.FileUtil;
 
 import javax.transaction.Transactional;

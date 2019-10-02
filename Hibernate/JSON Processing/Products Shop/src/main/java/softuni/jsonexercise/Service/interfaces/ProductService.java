@@ -1,9 +1,9 @@
-package softuni.jsonexercise.Service.interfaces;
+package softuni.jsonexercise.service.interfaces;
 
 import softuni.jsonexercise.domain.entities.Category;
 import softuni.jsonexercise.domain.entities.User;
-import softuni.jsonexercise.dto.queryDTO.query1.ProductInRangeModelView;
-import softuni.jsonexercise.dto.seedDTO.ProductSeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query1.ProductInRangeModelView;
+import softuni.jsonexercise.domain.dto.seedDTO.ProductSeedDTO;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,19 +1,15 @@
-package softuni.jsonexercise.dto.queryDTO.query1;
+package softuni.jsonexercise.domain.dto.queryDTO.query4;
 
 import com.google.gson.annotations.Expose;
-import java.io.Serializable;
+
 import java.math.BigDecimal;
 
-public class ProductInRangeModelView implements Serializable {
+public class ProductModelViewDtoQuery4 {
 
     @Expose
     private String name;
-
     @Expose
     private BigDecimal price;
-
-    @Expose
-    private String seller;
 
     public String getName() {
         return this.name;
@@ -30,14 +26,4 @@ public class ProductInRangeModelView implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-    public String getSeller() {
-        return this.seller;
-    }
-
-    public void setSeller(String seller) {
-        this.seller = seller;
-    }
-
-
 }

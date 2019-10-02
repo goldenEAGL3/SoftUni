@@ -1,8 +1,8 @@
-package softuni.jsonexercise.Service.interfaces;
+package softuni.jsonexercise.service.interfaces;
 
-import softuni.jsonexercise.dto.queryDTO.query2.UsersWithAtLeastOneProductSoldModelView;
-import softuni.jsonexercise.dto.queryDTO.query4.UserViewModelWrapperDtoQuery4;
-import softuni.jsonexercise.dto.seedDTO.UserSeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query2.UsersWithAtLeastOneProductSoldModelView;
+import softuni.jsonexercise.domain.dto.queryDTO.query4.UserViewModelWrapperDtoQuery4;
+import softuni.jsonexercise.domain.dto.seedDTO.UserSeedDTO;
 
 import java.util.List;
 

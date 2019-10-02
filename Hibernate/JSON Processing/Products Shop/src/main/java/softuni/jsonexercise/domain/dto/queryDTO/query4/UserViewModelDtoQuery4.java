@@ -1,21 +1,19 @@
-package softuni.jsonexercise.dto.queryDTO.query2;
+package softuni.jsonexercise.domain.dto.queryDTO.query4;
 
 import com.google.gson.annotations.Expose;
 
-
 import java.io.Serializable;
-import java.util.Set;
 
-public class UsersWithAtLeastOneProductSoldModelView implements Serializable {
+public class UserViewModelDtoQuery4 implements Serializable {
 
     @Expose
     private String firstName;
-
     @Expose
     private String lastName;
-
     @Expose
-    private Set<SoldProductsModelView> soldProducts;
+    private Integer age;
+    @Expose
+    private SoldProductsModelViewDtoQuery4 soldProducts;
 
     public String getFirstName() {
         return this.firstName;
@@ -33,11 +31,19 @@ public class UsersWithAtLeastOneProductSoldModelView implements Serializable {
         this.lastName = lastName;
     }
 
-    public Set<SoldProductsModelView> getSoldProducts() {
+    public Integer getAge() {
+        return this.age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public SoldProductsModelViewDtoQuery4 getSoldProducts() {
         return this.soldProducts;
     }
 
-    public void setSoldProducts(Set<SoldProductsModelView> soldProducts) {
+    public void setSoldProducts(SoldProductsModelViewDtoQuery4 soldProducts) {
         this.soldProducts = soldProducts;
     }
 }

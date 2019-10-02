@@ -1,12 +1,11 @@
-package softuni.jsonexercise.Service;
+package softuni.jsonexercise.service;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import softuni.jsonexercise.Service.interfaces.CategoryService;
+import softuni.jsonexercise.service.interfaces.CategoryService;
 import softuni.jsonexercise.domain.entities.Category;
-import softuni.jsonexercise.dto.queryDTO.query3.CategoryModelViewDto;
-import softuni.jsonexercise.dto.seedDTO.CategorySeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query3.CategoryModelViewDto;
+import softuni.jsonexercise.domain.dto.seedDTO.CategorySeedDTO;
 import softuni.jsonexercise.repository.CategoryRepository;
 import softuni.jsonexercise.utils.interfaces.DtoConverter;
 import softuni.jsonexercise.utils.interfaces.ValidationUtil;

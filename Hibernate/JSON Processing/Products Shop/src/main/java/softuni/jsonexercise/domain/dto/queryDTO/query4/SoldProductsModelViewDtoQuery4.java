@@ -1,4 +1,4 @@
-package softuni.jsonexercise.dto.queryDTO.query4;
+package softuni.jsonexercise.domain.dto.queryDTO.query4;
 
 import com.google.gson.annotations.Expose;
 

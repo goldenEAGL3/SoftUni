@@ -1,7 +1,7 @@
-package softuni.jsonexercise.Service.interfaces;
+package softuni.jsonexercise.service.interfaces;
 
-import softuni.jsonexercise.dto.queryDTO.query3.CategoryModelViewDto;
-import softuni.jsonexercise.dto.seedDTO.CategorySeedDTO;
+import softuni.jsonexercise.domain.dto.queryDTO.query3.CategoryModelViewDto;
+import softuni.jsonexercise.domain.dto.seedDTO.CategorySeedDTO;
 
 import java.util.List;
 

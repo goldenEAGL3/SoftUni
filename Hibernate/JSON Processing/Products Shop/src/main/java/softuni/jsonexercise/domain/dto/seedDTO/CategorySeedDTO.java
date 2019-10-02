@@ -1,4 +1,4 @@
-package softuni.jsonexercise.dto.seedDTO;
+package softuni.jsonexercise.domain.dto.seedDTO;
 
 import com.google.gson.annotations.Expose;
 
