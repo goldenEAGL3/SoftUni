@@ -56,15 +56,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receiptRepository.save(receipt);
     }
 
-    private boolean arePropertiesInvalid(String username, String packageId) {
-        UserServiceModel user = userService.findByUsername(username);
-        if (user == null) {
-            return true;
-        }
 
-        PackageServiceModel aPackage = packageService.findById(packageId);
-        return aPackage == null;
-    }
 
     @Override
     public List<ReceiptServiceModel> findAllByUsername(String username) {
@@ -80,5 +72,15 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = receiptRepository.findById(id);
         ReceiptServiceModel receiptServiceModel = modelMapper.map(receipt, ReceiptServiceModel.class);
         return receiptServiceModel;
+    }
+
+    private boolean arePropertiesInvalid(String username, String packageId) {
+        UserServiceModel user = userService.findByUsername(username);
+        if (user == null) {
+            return true;
+        }
+
+        PackageServiceModel aPackage = packageService.findById(packageId);
+        return aPackage == null;
     }
 }

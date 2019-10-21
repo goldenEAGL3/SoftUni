@@ -71,7 +71,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -80,17 +80,18 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\Java Web\PANDA\src\main\java" />
+      <recent name="D:\Java\Java Web\PANDA\src\main\webapp" />
+      <recent name="D:\Java\Java Web\PANDA\src\main\webapp\WEB-INF" />
+      <recent name="D:\Java\Java Web\PANDA\src\main\webapp\resources" />
+      <recent name="D:\Java\Java Web\PANDA\src\main\resources\META-INF" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Java\Java Web\PANDA\src\main\webapp" />
       <recent name="D:\Java\Java Web\PANDA\src\main\webapp\views" />
       <recent name="D:\Java\Java Web\PANDA\src\main\webapp\views\admin" />
       <recent name="D:\Java\Java Web\PANDA\src\main\webapp\views\guest" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Java\Java Web\PANDA\src\main\webapp" />
-      <recent name="D:\Java\Java Web\PANDA\src\main\webapp\WEB-INF" />
-      <recent name="D:\Java\Java Web\PANDA\src\main\webapp\resources" />
-      <recent name="D:\Java\Java Web\PANDA\src\main\resources\META-INF" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -183,12 +184,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6df2bcb0" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -211,7 +207,15 @@
       <workItem from="1571569471235" duration="28867000" />
       <workItem from="1571637333234" duration="333000" />
       <workItem from="1571637691091" duration="6413000" />
-      <workItem from="1571644346605" duration="3927000" />
+      <workItem from="1571644346605" duration="4534000" />
+      <workItem from="1571649926758" duration="148000" />
+      <workItem from="1571650116720" duration="1419000" />
+      <workItem from="1571651615182" duration="42000" />
+      <workItem from="1571654545580" duration="13000" />
+      <workItem from="1571656734153" duration="909000" />
+      <workItem from="1571661472568" duration="1907000" />
+      <workItem from="1571673184178" duration="305000" />
+      <workItem from="1571674721326" duration="225000" />
     </task>
     <servers />
   </component>
@@ -233,7 +237,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/service/ReceiptServiceImpl.java</url>
-          <line>74</line>
+          <line>66</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

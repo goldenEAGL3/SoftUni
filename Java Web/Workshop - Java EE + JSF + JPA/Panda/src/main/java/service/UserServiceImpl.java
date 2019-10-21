@@ -6,6 +6,7 @@ import domain.models.service.UserServiceModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.modelmapper.ModelMapper;
 import repository.UserRepository;
+import utils.ValidationService;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -13,21 +14,24 @@ import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final ValidationService validationService;
     private final ModelMapper modelMapper;
 
     @Inject
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ValidationService validationService, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.validationService = validationService;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public boolean register(UserServiceModel userServiceModel) {
-        boolean userExists = userRepository.findByUsername(userServiceModel.getUsername()) != null;
+        boolean invalidData = this.isDataInvalid(userServiceModel);
 
-        if (userExists) {
+        if (invalidData) {
             return false;
         }
+
         User user = this.modelMapper.map(userServiceModel, User.class);
         String hashedPassword = DigestUtils.sha256Hex(userServiceModel.getPassword());
         user.setPassword(hashedPassword);
@@ -69,5 +73,16 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         return modelMapper.map(user, UserServiceModel.class);
+    }
+
+    private boolean isDataInvalid(UserServiceModel userServiceModel) {
+        String username = userServiceModel.getUsername();
+        String email = userServiceModel.getEmail();
+        String password = userServiceModel.getPassword();
+        String confirmPassword = userServiceModel.getConfirmPassword();
+
+        return validationService.isEmailInvalid(email) ||
+                validationService.isPasswordIncorrect(password, confirmPassword) ||
+                validationService.isUsernameTaken(username);
     }
 }
