@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:fragment="navbar">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-exodia rounded">
+            <th:block th:switch="${session.get('username')}" >
+                <th:block th:case="null">
+                    <a class="navbar-brand nav-link-white" th:href="@{/}">EXODIA</a>
+                </th:block>
+                <th:block th:case="*">
+                    <a class="navbar-brand nav-link-white" th:href="@{/home}">EXODIA</a>
+                </th:block>
+            </th:block>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                </ul>
+                <ul class="navbar-nav">
+                <th:block th:switch="${session.get('username')}" >
+                    <th:block th:case="null">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-white active" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-white active" th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-white active" th:href="@{/register}">Register</a>
+                    </li>
+                    </th:block>
+                    <th:block th:case="*">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" th:href="@{/home}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" th:href="@{/schedule}">Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-white active" th:href="@{/logout}">Logout</a>
+                            </li>
+                    </th:block>
+                </th:block>
+               </ul>
+
+            </div>
+        </nav>
+    </header>
+</th:block>
+</html>
