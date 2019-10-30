@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:replace="/fragments/head"/>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:replace="/fragments/navbar"/>
+    </header>
+    <main>
+        <div class="container mt-3">
+            <table class="table">
+                <thead>
+                <tr class="text-center">
+                    <th  scope="col">#</th>
+                    <th  scope="col">Name</th>
+                    <th  scope="col">Magnitude</th>
+                    <th  scope="col">Released On</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="virus : ${viruses}">
+                    <tr class="text-center">
+                        <th  scope="row" th:text="${virusStat.index + 1}"></th>
+                        <td  th:text="*{virus.getName()}"></td>
+                        <td  th:text="${virus.getMagnitude()}"></td>
+                        <td  th:text="${virus.getReleasedOn()}"></td>
+                        <td>
+                            <a class="btn btn-outline-dark"
+                               th:href="@{/virus/edit/{id}(id=${virus.getId()})}">Edit</a>
+                        </td>
+                        <td>
+                            <form th:method="post" th:action="@{/virus/delete/{id}(id=${virus.getId()})}">
+                                <button type="submit" class="btn btn-outline-dark">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <th:block th:replace="/fragments/footer"/>
+    </footer>
+</div>
+</body>
+</html>
