@@ -1,0 +1,100 @@
+--------------------------------------------------------------------------------------------------------------------------------------------
+Import the database and send the total count of records to Mr. Bodrog. 
+
+SELECT COUNT(*) AS `count` FROM `wizzard_deposits`;
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select the size of the longest magic wand. Rename the new column appropriately.
+
+SELECT MAX(`magic_wand_size`) AS `longest_magic_wand` FROM `wizzard_deposits`;
+--------------------------------------------------------------------------------------------------------------------------------------------
+For wizards in each deposit group show the longest magic wand.
+Sort result by longest magic wand for each deposit group in increasing order, then by deposit_group alphabetically.
+Rename the new column appropriately.
+
+SELECT `deposit_group`,
+MAX(`magic_wand_size`) AS `longest_magic_wand` 
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`
+ORDER BY `longest_magic_wand` , `deposit_group`;
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select the deposit group with the lowest average wand size.
+
+SELECT `deposit_group`
+FROM `wizzard_deposits`
+HAVING AVG(`magic_wand_size`)
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select all deposit groups and its total deposit sum. Sort result by total_sum in increasing order.
+
+SELECT `deposit_group`,
+SUM(`deposit_amount`) AS `total_sum`
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`
+ORDER BY `total_sum`;
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select all deposit groups and its total deposit sum but only for the wizards who has their magic wand crafted by Ollivander family.
+Sort result by deposit_group alphabetically.
+
+SELECT `deposit_group`,
+SUM(`deposit_amount`)
+FROM `wizzard_deposits`
+WHERE `magic_wand_creator` = 'Ollivander family'
+GROUP BY `deposit_group`
+ORDER BY `deposit_group`;
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select all deposit groups and its total deposit sum but only for the wizards who has their magic wand crafted by Ollivander family.
+After this, filter total deposit sums lower than 150000.
+Order by total deposit sum in descending order.
+
+SELECT `deposit_group`,
+SUM(`deposit_amount`) AS  `total_sum`
+FROM `wizzard_deposits`
+WHERE `magic_wand_creator` = 'Ollivander family'
+GROUP BY `deposit_group`
+HAVING `total_sum` < 150000
+ORDER BY `total_sum` DESC;
+--------------------------------------------------------------------------------------------------------------------------------------------
+Create a query that selects:
+•	Deposit group 
+•	Magic wand creator
+•	Minimum deposit charge for each group 
+Group by deposit_group and magic_wand_creator.
+Select the data in ascending order by magic_wand_creator and deposit_group.
+
+
+SELECT `deposit_group`,
+`magic_wand_creator`,
+MIN(`deposit_charge`) AS `min_deposit_charge`
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`, `magic_wand_creator`
+ORDER BY `magic_wand_creator`, `deposit_group`
+--------------------------------------------------------------------------------------------------------------------------------------------
+Write down a query that creates 7 different groups based on their age.
+Age groups should be as follows:
+•	[0-10]
+•	[11-20]
+•	[21-30]
+•	[31-40]
+•	[41-50]
+•	[51-60]
+•	[61+]
+The query should return:
+•	Age groups
+•	Count of wizards in it
+Sort result by increasing size of age groups.
+
+
+SELECT 
+	CASE
+		WHEN `age` <= 10 THEN '[0-10]'
+		WHEN `age` <= 20 THEN '[11-20]'
+		WHEN `age` <= 30 THEN '[21-30]'
+		WHEN `age` <= 40 THEN '[31-40]'
+		WHEN `age` <= 50 THEN '[41-50]'
+		WHEN `age` <= 60 THEN '[51-60]'
+        ELSE '[61+]'
+	END AS `age_group`,
+COUNT(`age`) AS `wizard_count`
+FROM `wizzard_deposits`
+GROUP BY `age_group`
+ORDER BY `age_group`;
+--------------------------------------------------------------------------------------------------------------------------------------------
