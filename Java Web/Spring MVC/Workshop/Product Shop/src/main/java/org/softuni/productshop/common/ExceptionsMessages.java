@@ -8,4 +8,6 @@ public class ExceptionsMessages {
     public static final String EMAIL_IS_INVALID = "Invalid email was entered.";
 
     public static final String ID_NOT_FOUND = "ID not found!";
+
+    public static final String OLD_PASSWORD_DOES_NOT_MATCH = "Wrong password entered!";
 }

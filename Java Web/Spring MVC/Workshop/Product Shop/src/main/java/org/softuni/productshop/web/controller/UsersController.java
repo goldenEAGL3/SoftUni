@@ -2,6 +2,7 @@ package org.softuni.productshop.web.controller;
 
 import org.modelmapper.ModelMapper;
 import org.softuni.productshop.common.CustomException;
+import org.softuni.productshop.domain.entity.Role;
 import org.softuni.productshop.domain.model.binding.UserEditBindingModel;
 import org.softuni.productshop.domain.model.view.UserEditProfileViewModel;
 import org.softuni.productshop.domain.model.view.UserViewModel;
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -91,13 +95,13 @@ public class UsersController extends BaseController {
                                     BindingResult bindingResult,
                                     ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("user", user); //TODO: change with UserEditProfileViewModel.
             return super.view("edit-profile", modelAndView);
         }
         UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
-
+        String oldPassword = user.getOldPassword();
         try {
-            this.userService.editProfile(userServiceModel, id);
+            this.userService.editProfile(userServiceModel, id, oldPassword);
         } catch (CustomException e) {
             //TODO: flash attributes.
             return super.view("edit-profile");
@@ -105,11 +109,37 @@ public class UsersController extends BaseController {
         return super.view("home");
     }
 
-    @GetMapping("/all-users")
+    @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROOT_ADMIN', 'ADMIN')")
-    public ModelAndView allUsers() {
-        //TODO: functionality.
-        return super.view("all-users");
+    public ModelAndView allUsers(ModelAndView modelAndView) {
+        List<UserViewModel> allUsers = this.userService.findAll()
+                .stream().map(user -> {
+                    UserViewModel userViewModel = this.modelMapper.map(user, UserViewModel.class);
+                    setAuthority(user, userViewModel);
+                    return userViewModel;
+                })
+                .collect(Collectors.toList());
+
+        modelAndView.addObject("allUsers", allUsers);
+        return super.view("all-users", modelAndView);
+    }
+
+    @PostMapping("/set-role/{role}/{id}")
+    public ModelAndView setRole(@PathVariable(name = "role") String role, @PathVariable(name = "id") String id) {
+        try {
+            this.userService.updateRole(id, role);
+        } catch (CustomException e) {
+            //TODO: redirect
+        }
+        return super.redirect("/users/all");
+    }
+
+    private void setAuthority(UserServiceModel user, UserViewModel userViewModel) {
+        Set<String> authorities = user.getAuthorities()
+                .stream()
+                .map(Role::getAuthority)
+                .collect(Collectors.toSet());
+        userViewModel.setAuthorities(authorities);
     }
 
 

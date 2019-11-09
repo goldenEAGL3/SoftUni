@@ -6,8 +6,8 @@ import javax.validation.constraints.NotEmpty;
 
 @FieldMatch(first = "newPassword", second = "confirmNewPassword", message = "Passwords must match")
 public class UserEditBindingModel {
-
-
+    private String id;
+    private String username;
     @NotEmpty(message = "Email cannot be empty!")
     private String email;
 
@@ -20,6 +20,21 @@ public class UserEditBindingModel {
     @NotEmpty(message = "Confirm password cannot be empty!")
     private String confirmPassword;
 
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return this.email;

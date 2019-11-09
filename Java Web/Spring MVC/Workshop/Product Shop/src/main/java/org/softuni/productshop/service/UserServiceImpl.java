@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.softuni.productshop.common.ExceptionsMessages.*;
 
@@ -98,16 +100,56 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editProfile(UserServiceModel user, String id) throws CustomException {
-        this.validateEmail(user.getEmail());
-        //TODO: validate oldPassword matching currentPassword
+    public void editProfile(UserServiceModel user, String id, String oldPassword) throws CustomException {
+        User userToBeEdited = this.userRepository.findById(id).orElseThrow(() -> new CustomException(ID_NOT_FOUND));
 
-        User userToBeEdited = this.userRepository.findById(id).orElseThrow(() ->  new CustomException(ID_NOT_FOUND));
+        if (!userToBeEdited.getEmail().equals(user.getEmail())) {
+            this.validateEmail(user.getEmail());
+        }
+        userToBeEdited.setEmail(user.getEmail());
+
+        //TODO: add check if the user does not want to change his/her password. (if passwords are empty).
+        if (!encoder.matches(oldPassword, userToBeEdited.getPassword())) {
+            throw new CustomException(OLD_PASSWORD_DOES_NOT_MATCH);
+        }
         String hashedPassword = encoder.encode(user.getPassword());
         userToBeEdited.setPassword(hashedPassword);
-        userToBeEdited.setEmail(user.getEmail());
         this.userRepository.saveAndFlush(userToBeEdited);
 
+    }
+
+    @Override
+    public List<UserServiceModel> findAll() {
+        List<UserServiceModel> allUsers = this.userRepository.findAll()
+                .stream()
+                .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+                .collect(Collectors.toList());
+        return allUsers;
+    }
+
+    @Override
+    public void updateRole(String id, String role) throws CustomException {
+        User user = this.userRepository
+                .findById(id).orElseThrow(() -> new CustomException(ID_NOT_FOUND));
+        this.setCorrectAuthority(user, role);
+        this.userRepository.saveAndFlush(user);
+    }
+
+    private void setCorrectAuthority(User user, String role) {
+        Set<Role> roles = new HashSet<>();
+
+        switch (role) {
+            case "ADMIN":
+                roles.add(this.roleRepository.findByAuthority(ROLE_ADMIN));
+                roles.add(this.roleRepository.findByAuthority(ROLE_MODERATOR));
+                break;
+
+            case "MODERATOR":
+                roles.add(this.roleRepository.findByAuthority(ROLE_MODERATOR));
+                break;
+        }
+        roles.add(this.roleRepository.findByAuthority(ROLE_USER));
+        user.setAuthorities(roles);
     }
 
     private Set<Role> getCorrectAuthority() {
@@ -146,8 +188,6 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(EMAIL_IS_INVALID);
         }
     }
-
-
 
 
 }

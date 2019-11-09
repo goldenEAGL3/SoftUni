@@ -1,79 +1,11 @@
-<html lang="en"><head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Shop</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/reset-css.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrapselect.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrapselect.min.js"></script>
-
-
-</head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<th:block th:replace="/fragments/head"/>
 <body>
 <div class="container-fluid">
-    
+
     <header>
-        
-        
-            
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded font-weight-bold">
-        <a class="navbar-brand" href="/home">✳✶  🎀  𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅  🎀  ✶✳</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/home">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/users/profile">Profile</a>
-                </li>
-                
-                    <li class="nav-item active">
-                        <div class="dropdown show">
-                            <a class="nav-link active dropdown-toggle" href="#" role="button" id="moderatorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Moderator
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="moderatorDropdown">
-                                <a class="dropdown-item" href="/categories/add">Add Category</a>
-                                <a class="dropdown-item" href="/products/add">Add Product</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/categories/all">All Categories</a>
-                                <a class="dropdown-item" href="/products/all">All Products</a>
-                            </div>
-                        </div>
-                    </li>
-                
-                
-                    <li class="nav-item active">
-                        <div class="dropdown show">
-                            <a class="nav-link active dropdown-toggle" href="#" role="button" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                <a class="dropdown-item" href="/users/all">All Users</a>
-                            </div>
-                        </div>
-                    </li>
-                
-                <li class="nav-item active">
-                    <form action="/logout?login" method="post"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                        <button class="logout-button nav-link">Logout</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-
-        
+        <th:block th:replace="/fragments/navbar"/>
     </header>
 
     <main class="mt-3">
@@ -90,81 +22,70 @@
             </tr>
             </thead>
             <tbody>
-            
+            <th:block th:each="user : ${allUsers}">
                 <tr class="row mx-auto">
-                    <th class="col-md-2 text-center">1</th>
-                    <td class="col-md-3 text-center">spaska</td>
-                    <td class="col-md-2 text-center">spaska@abv.bg</td>
-                    <td class="col-md-2 text-center">USER</td>
+                    <th class="col-md-2 text-center" th:text="${userStat.index + 1}"></th>
+                    <td class="col-md-3 text-center" th:text="*{user.username}"></td>
+                    <td class="col-md-2 text-center" th:text="*{user.email}"></td>
+
+                    <td class="col-md-2 text-center" th:text="${#strings.listJoin(user.authorities, '&#10')}"></td>
                     <td class="col-md-3 text-center">
-                        
+                        <th:block
+                                th:if="${!user.authorities.contains('ROOT') and !#authentication.getName().equals(user.username)}">
                             <div class="row">
-                                <form action="/users/set-moderator/7f8f5642-9b95-41b2-8508-e91b50fdc12a" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">MODERATOR</button>
-                                </form>
-                                <form action="/users/set-admin/7f8f5642-9b95-41b2-8508-e91b50fdc12a" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">ADMIN</button>
-                                </form>
+                                <th:block th:if="${user.authorities.contains('ADMIN')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='MODERATOR', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">MODERATOR</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(id=${user.id})}" th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">USER</button>
+                                    </form>
+                                </th:block>
+                                <th:block
+                                        th:if="${!user.authorities.contains('ADMIN') && user.authorities.contains('MODERATOR')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='ADMIN', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">ADMIN</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(role = 'USER', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">USER</button>
+                                    </form>
+                                </th:block>
+                                <th:block
+                                        th:if="${user.authorities.contains('USER') and !user.authorities.contains('MODERATOR')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='ADMIN', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">ADMIN</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(role = 'MODERATOR', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">MODERATOR</button>
+                                    </form>
+                                </th:block>
                             </div>
-                        
-                        
-                        
+                        </th:block>
                     </td>
                 </tr>
-            
-                <tr class="row mx-auto">
-                    <th class="col-md-2 text-center">2</th>
-                    <td class="col-md-3 text-center">minka</td>
-                    <td class="col-md-2 text-center">minka@hotmail.com</td>
-                    <td class="col-md-2 text-center">ADMIN, MODERATOR, USER</td>
-                    <td class="col-md-3 text-center">
-                        
-                        
-                        
-                            <div class="row">
-                                <form action="/users/set-user/b08f997c-0ccb-43e6-bb9b-48fb1c06de3f" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">USER</button>
-                                </form>
-                                <form action="/users/set-moderator/b08f997c-0ccb-43e6-bb9b-48fb1c06de3f" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">MODERATOR</button>
-                                </form>
-                            </div>
-                        
-                    </td>
-                </tr>
-            
-                <tr class="row mx-auto">
-                    <th class="col-md-2 text-center">3</th>
-                    <td class="col-md-3 text-center">gosho</td>
-                    <td class="col-md-2 text-center">gosho@mail.cmo</td>
-                    <td class="col-md-2 text-center">MODERATOR, USER</td>
-                    <td class="col-md-3 text-center">
-                        
-                        
-                            <div class="row">
-                                <form action="/users/set-user/e3682d0d-4382-4a93-bd9d-114a3cabca10" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">USER</button>
-                                </form>
-                                <form action="/users/set-admin/e3682d0d-4382-4a93-bd9d-114a3cabca10" method="post" class="mx-1"><input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                    <button class="btn btn-dark">ADMIN</button>
-                                </form>
-                            </div>
-                        
-                        
-                    </td>
-                </tr>
-            
+            </th:block>
+
             </tbody>
         </table>
         <hr class="hr-2 bg-dark">
     </main>
-    
+
     <footer class="mt-3">
-        <div class="container-fluid bg-light rounded">
-            <div class="text-dark font-weight-bold p-2 text-center">© CopyRight Sanity Web Design Studios 2019. All
-                rights reserved.
-            </div>
-        </div>
+        <th:block th:replace="/fragments/footer"/>
     </footer>
 
 </div>
@@ -173,4 +94,5 @@
 
 </script>
 
-</body></html>
+</body>
+</html>
