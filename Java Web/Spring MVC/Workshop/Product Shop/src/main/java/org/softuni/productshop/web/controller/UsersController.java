@@ -37,7 +37,7 @@ public class UsersController extends BaseController {
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
     public ModelAndView register(@ModelAttribute(name = "userRegisterBindingModel") UserRegisterBindingModel user) {
-        return super.view("register");
+        return super.view("/views/register");
     }
 
 
@@ -51,23 +51,23 @@ public class UsersController extends BaseController {
     ) {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("user", userRegisterBindingModel);
-            return super.view("register", modelAndView);
+            return super.view("/views/register", modelAndView);
         }
         UserServiceModel userServiceModel = this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
         try {
             this.userService.register(userServiceModel);
 
         } catch (CustomException e) {
-            return super.redirect("register");
+            return super.redirect("/views/register");
         }
 
-        return super.redirect("login");
+        return super.redirect("/views/login");
     }
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
     public ModelAndView login() {
-        return super.view("login");
+        return super.view("/views/login");
     }
 
 
@@ -78,7 +78,7 @@ public class UsersController extends BaseController {
         UserServiceModel userServiceModel = this.userService.findByUsername(username);
         UserViewModel user = this.modelMapper.map(userServiceModel, UserViewModel.class);
         modelAndView.addObject("user", user);
-        return super.view("profile", modelAndView);
+        return super.view("/views/profile", modelAndView);
     }
 
     @GetMapping("/edit/{id}")
@@ -87,7 +87,7 @@ public class UsersController extends BaseController {
         UserServiceModel userServiceModel = this.userService.findById(id);
         UserEditProfileViewModel user = this.modelMapper.map(userServiceModel, UserEditProfileViewModel.class);
         modelAndView.addObject("user", user);
-        return super.view("edit-profile", modelAndView);
+        return super.view("/views/edit-profile", modelAndView);
     }
 
     @PostMapping("/edit/{id}")
@@ -96,7 +96,7 @@ public class UsersController extends BaseController {
                                     ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("user", user); //TODO: change with UserEditProfileViewModel.
-            return super.view("edit-profile", modelAndView);
+            return super.view("/views/edit-profile", modelAndView);
         }
         UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
         String oldPassword = user.getOldPassword();
@@ -104,7 +104,7 @@ public class UsersController extends BaseController {
             this.userService.editProfile(userServiceModel, id, oldPassword);
         } catch (CustomException e) {
             //TODO: flash attributes.
-            return super.view("edit-profile");
+            return super.view("/views/edit-profile");
         }
         return super.view("home");
     }
@@ -121,7 +121,7 @@ public class UsersController extends BaseController {
                 .collect(Collectors.toList());
 
         modelAndView.addObject("allUsers", allUsers);
-        return super.view("all-users", modelAndView);
+        return super.view("/views/all-users", modelAndView);
     }
 
     @PostMapping("/set-role/{role}/{id}")
