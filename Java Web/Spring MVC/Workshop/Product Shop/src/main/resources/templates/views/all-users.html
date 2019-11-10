@@ -1,0 +1,98 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<th:block th:replace="/fragments/head"/>
+<body>
+<div class="container-fluid">
+
+    <header>
+        <th:block th:replace="/fragments/navbar"/>
+    </header>
+
+    <main class="mt-3">
+        <h1 class="text-center text-dark">All Users</h1>
+        <hr class="hr-2 bg-dark w-75">
+        <table class="table table-hover w-75 mx-auto">
+            <thead>
+            <tr class="row mx-auto">
+                <th class="col-md-2 text-center">#</th>
+                <th class="col-md-3 text-center">Username</th>
+                <th class="col-md-2 text-center">Email</th>
+                <th class="col-md-2 text-center">Roles</th>
+                <th class="col-md-3 text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${allUsers}">
+                <tr class="row mx-auto">
+                    <th class="col-md-2 text-center" th:text="${userStat.index + 1}"></th>
+                    <td class="col-md-3 text-center" th:text="*{user.username}"></td>
+                    <td class="col-md-2 text-center" th:text="*{user.email}"></td>
+
+                    <td class="col-md-2 text-center" th:text="${#strings.listJoin(user.authorities, '&#10')}"></td>
+                    <td class="col-md-3 text-center">
+                        <th:block
+                                th:if="${!user.authorities.contains('ROOT') and !#authentication.getName().equals(user.username)}">
+                            <div class="row">
+                                <th:block th:if="${user.authorities.contains('ADMIN')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='MODERATOR', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">MODERATOR</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(id=${user.id})}" th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">USER</button>
+                                    </form>
+                                </th:block>
+                                <th:block
+                                        th:if="${!user.authorities.contains('ADMIN') && user.authorities.contains('MODERATOR')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='ADMIN', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">ADMIN</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(role = 'USER', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">USER</button>
+                                    </form>
+                                </th:block>
+                                <th:block
+                                        th:if="${user.authorities.contains('USER') and !user.authorities.contains('MODERATOR')}">
+                                    <form th:action="@{/users/set-role/{role}/{id}(role='ADMIN', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1"><input type="hidden">
+                                        <button class="btn btn-dark">ADMIN</button>
+                                    </form>
+                                    <form th:action="@{/users/set-role/{role}/{id}(role = 'MODERATOR', id=${user.id})}"
+                                          th:method="post"
+                                          class="mx-1">
+                                        <input type="hidden">
+                                        <button class="btn btn-dark">MODERATOR</button>
+                                    </form>
+                                </th:block>
+                            </div>
+                        </th:block>
+                    </td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+        <hr class="hr-2 bg-dark">
+    </main>
+
+    <footer class="mt-3">
+        <th:block th:replace="/fragments/footer"/>
+    </footer>
+
+</div>
+
+<script>
+
+</script>
+
+</body>
+</html>
