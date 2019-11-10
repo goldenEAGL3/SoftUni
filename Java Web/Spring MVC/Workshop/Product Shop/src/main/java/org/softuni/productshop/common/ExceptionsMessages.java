@@ -10,4 +10,9 @@ public class ExceptionsMessages {
     public static final String ID_NOT_FOUND = "ID not found!";
 
     public static final String OLD_PASSWORD_DOES_NOT_MATCH = "Wrong password entered!";
+
+    public static final String CATEGORY_ALREADY_EXISTS = "Category already exists!";
+    public static final String CATEGORY_NOT_FOUND = "Category does not exist!";
+
+    public static final String PRODUCT_NOT_FOUND = "Product does not exist!";
 }
