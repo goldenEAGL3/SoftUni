@@ -1,9 +1,9 @@
-package org.softuni.productshop.domain.model.service;
+package org.softuni.productshop.domain.model.view.product;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ProductServiceModel {
+public class ProductEditViewModel {
 
     private String id;
 
@@ -12,8 +12,6 @@ public class ProductServiceModel {
     private String description;
 
     private BigDecimal price;
-
-    private String imageUrl;
 
     private Set<String> categories;
 
@@ -47,14 +45,6 @@ public class ProductServiceModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public Set<String> getCategories() {

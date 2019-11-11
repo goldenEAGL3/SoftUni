@@ -15,4 +15,6 @@ public class ExceptionsMessages {
     public static final String CATEGORY_NOT_FOUND = "Category does not exist!";
 
     public static final String PRODUCT_NOT_FOUND = "Product does not exist!";
+
+    public static final String ORDER_NOT_FOUND = "Order does not exist!";
 }

@@ -2,14 +2,11 @@ package org.softuni.productshop.web.controller;
 
 import org.modelmapper.ModelMapper;
 import org.softuni.productshop.common.CustomException;
-import org.softuni.productshop.domain.model.binding.ProductBindingModel;
-import org.softuni.productshop.domain.model.binding.ProductEditBindingModel;
+import org.softuni.productshop.domain.model.binding.product.ProductBindingModel;
+import org.softuni.productshop.domain.model.binding.product.ProductEditBindingModel;
 import org.softuni.productshop.domain.model.service.CategoryServiceModel;
 import org.softuni.productshop.domain.model.service.ProductServiceModel;
-import org.softuni.productshop.domain.model.view.ProductDeleteViewModel;
-import org.softuni.productshop.domain.model.view.ProductEditViewModel;
-import org.softuni.productshop.domain.model.view.ProductHomeViewModel;
-import org.softuni.productshop.domain.model.view.ProductViewModel;
+import org.softuni.productshop.domain.model.view.product.*;
 import org.softuni.productshop.service.CategoryService;
 import org.softuni.productshop.service.CloudinaryService;
 import org.softuni.productshop.service.ProductService;
@@ -22,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/products")
@@ -61,9 +55,7 @@ public class ProductController extends BaseController {
         }
 
         try {
-            Set<CategoryServiceModel> categories = this.findAllCategories(product.getCategories());
             ProductServiceModel productServiceModel = this.modelMapper.map(product, ProductServiceModel.class);
-            productServiceModel.setCategories(categories);
             productServiceModel.setImageUrl(this.cloudinaryService.uploadImage(product.getImageUrl()));
             this.productService.add(productServiceModel);
         } catch (IOException | CustomException e) {
@@ -76,37 +68,30 @@ public class ProductController extends BaseController {
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('MODERATOR')")
     public ModelAndView showAllProducts(ModelAndView modelAndView) {
-        List<ProductViewModel> allProducts = this.productService.findAll()
-                .stream()
-                .map(product -> this.modelMapper.map(product, ProductViewModel.class))
-                .collect(Collectors.toList());
+        List<ProductViewModel> allProducts = this.productService.findAll();
         modelAndView.addObject("products", allProducts);
         return super.view("/views/product/all-products", modelAndView);
     }
 
     @GetMapping("/details/{id}")
-    @PreAuthorize("hasAuthority('MODERATOR')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView details(@PathVariable(name = "id") String id, ModelAndView modelAndView) {
         try {
             ProductServiceModel productById = this.productService.findById(id);
-            ProductViewModel product = this.modelMapper.map(productById, ProductViewModel.class);
+            ProductDetailsViewModel product = this.modelMapper.map(productById, ProductDetailsViewModel.class);
             modelAndView.addObject("product", product);
         } catch (CustomException e) {
             return super.view("/views/product/all-products");
         }
-
         return super.view("/views/product/details", modelAndView);
-
     }
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('MODERATOR')")
     public ModelAndView edit(@PathVariable(name = "id") String id, ModelAndView modelAndView) {
         try {
-            ProductServiceModel byId = this.productService.findById(id);
-            ProductEditViewModel product = this.modelMapper.map(byId, ProductEditViewModel.class);
-            Set<String> categories = byId.getCategories().stream().map(CategoryServiceModel::getName).collect(Collectors.toSet());
-            product.setCategories(categories);
+            ProductServiceModel productById = this.productService.findById(id);
+            ProductEditViewModel product = this.modelMapper.map(productById, ProductEditViewModel.class);
             modelAndView.addObject("product", product);
         } catch (CustomException e) {
             return super.redirect("/products/all");
@@ -124,14 +109,11 @@ public class ProductController extends BaseController {
             return super.view("/views/product/edit-product", modelAndView);
         }
 
-        ProductServiceModel productServiceModel = this.modelMapper.map(product, ProductServiceModel.class);
-
         try {
-            Set<CategoryServiceModel> categories = this.findAllCategories(product.getCategories());
-            productServiceModel.setCategories(categories);
+            ProductServiceModel productServiceModel = this.modelMapper.map(product, ProductServiceModel.class);
             this.productService.edit(id, productServiceModel);
         } catch (CustomException e) {
-
+            //TODO: redirect
         }
         return super.redirect("/products/all");
     }
@@ -143,16 +125,9 @@ public class ProductController extends BaseController {
         try {
             ProductServiceModel productById = this.productService.findById(id);
             ProductDeleteViewModel product = this.modelMapper.map(productById, ProductDeleteViewModel.class);
-            List<String> categoryNames =
-                    productById
-                            .getCategories()
-                            .stream()
-                            .map(CategoryServiceModel::getName)
-                            .collect(Collectors.toList());
-            product.setCategories(categoryNames);
             modelAndView.addObject("product", product);
         } catch (CustomException e) {
-
+            //TODO: redirect
         }
         return super.view("/views/product/delete-product", modelAndView);
     }
@@ -165,30 +140,14 @@ public class ProductController extends BaseController {
 
     @GetMapping("/fetch/{category}")
     @ResponseBody
-    public List<ProductHomeViewModel> fetch(@PathVariable(name = "category") String category) {
-        List<ProductHomeViewModel> allByCategory;
+    public List<ProductViewModel> fetch(@PathVariable(name = "category") String category) {
+        List<ProductViewModel> allByCategory;
         if ("All".equals(category)) {
-            allByCategory = this.productService.findAll()
-                    .stream()
-                    .map(product -> this.modelMapper.map(product, ProductHomeViewModel.class))
-                    .collect(Collectors.toList());
-
+            allByCategory = this.productService.findAll();
         } else {
             CategoryServiceModel categoryServiceModel = this.categoryService.findByName(category);
-            allByCategory = this.productService.findAllByCategory(categoryServiceModel)
-                    .stream()
-                    .map(product -> this.modelMapper.map(product, ProductHomeViewModel.class))
-                    .collect(Collectors.toList());
+            allByCategory = this.productService.findAllByCategory(categoryServiceModel);
         }
-
         return allByCategory;
-    }
-
-    private Set<CategoryServiceModel> findAllCategories(Set<String> categoriesString) throws CustomException {
-        Set<CategoryServiceModel> categories = new HashSet<>();
-        for (String categoryId : categoriesString) {
-            categories.add(this.categoryService.findById(categoryId));
-        }
-        return categories;
     }
 }

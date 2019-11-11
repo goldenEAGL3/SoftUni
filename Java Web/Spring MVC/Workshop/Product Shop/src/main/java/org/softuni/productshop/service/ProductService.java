@@ -3,14 +3,15 @@ package org.softuni.productshop.service;
 import org.softuni.productshop.common.CustomException;
 import org.softuni.productshop.domain.model.service.CategoryServiceModel;
 import org.softuni.productshop.domain.model.service.ProductServiceModel;
+import org.softuni.productshop.domain.model.view.product.ProductViewModel;
 
 import java.util.List;
 
 public interface ProductService {
 
-    void add(ProductServiceModel productServiceModel);
+    void add(ProductServiceModel productServiceModel) throws CustomException;
 
-    List<ProductServiceModel> findAll();
+    List<ProductViewModel> findAll();
 
     ProductServiceModel findById(String id) throws CustomException;
 
@@ -18,5 +19,5 @@ public interface ProductService {
 
     void edit(String id, ProductServiceModel productServiceModel) throws CustomException;
 
-    List<ProductServiceModel> findAllByCategory(CategoryServiceModel category);
+    List<ProductViewModel> findAllByCategory(CategoryServiceModel category);
 }

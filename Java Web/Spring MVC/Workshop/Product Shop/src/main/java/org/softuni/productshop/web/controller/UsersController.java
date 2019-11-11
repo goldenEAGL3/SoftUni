@@ -2,11 +2,10 @@ package org.softuni.productshop.web.controller;
 
 import org.modelmapper.ModelMapper;
 import org.softuni.productshop.common.CustomException;
-import org.softuni.productshop.domain.entity.Role;
-import org.softuni.productshop.domain.model.binding.UserEditBindingModel;
-import org.softuni.productshop.domain.model.view.UserEditProfileViewModel;
-import org.softuni.productshop.domain.model.view.UserViewModel;
-import org.softuni.productshop.domain.model.binding.UserRegisterBindingModel;
+import org.softuni.productshop.domain.model.binding.user.UserEditBindingModel;
+import org.softuni.productshop.domain.model.view.user.UserEditProfileViewModel;
+import org.softuni.productshop.domain.model.view.user.UserViewModel;
+import org.softuni.productshop.domain.model.binding.user.UserRegisterBindingModel;
 import org.softuni.productshop.domain.model.service.UserServiceModel;
 import org.softuni.productshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -53,14 +50,12 @@ public class UsersController extends BaseController {
             modelAndView.addObject("user", userRegisterBindingModel);
             return super.view("/views/register", modelAndView);
         }
-        UserServiceModel userServiceModel = this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
         try {
+            UserServiceModel userServiceModel = this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
             this.userService.register(userServiceModel);
-
         } catch (CustomException e) {
             return super.redirect("/views/register");
         }
-
         return super.redirect("/views/login");
     }
 
@@ -98,9 +93,9 @@ public class UsersController extends BaseController {
             modelAndView.addObject("user", user); //TODO: change with UserEditProfileViewModel.
             return super.view("/views/edit-profile", modelAndView);
         }
-        UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
-        String oldPassword = user.getOldPassword();
         try {
+            UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
+            String oldPassword = user.getOldPassword();
             this.userService.editProfile(userServiceModel, id, oldPassword);
         } catch (CustomException e) {
             //TODO: flash attributes.
@@ -112,14 +107,7 @@ public class UsersController extends BaseController {
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROOT_ADMIN', 'ADMIN')")
     public ModelAndView allUsers(ModelAndView modelAndView) {
-        List<UserViewModel> allUsers = this.userService.findAll()
-                .stream().map(user -> {
-                    UserViewModel userViewModel = this.modelMapper.map(user, UserViewModel.class);
-                    setAuthority(user, userViewModel);
-                    return userViewModel;
-                })
-                .collect(Collectors.toList());
-
+        List<UserViewModel> allUsers = this.userService.findAll();
         modelAndView.addObject("allUsers", allUsers);
         return super.view("/views/all-users", modelAndView);
     }
@@ -132,14 +120,6 @@ public class UsersController extends BaseController {
             //TODO: redirect
         }
         return super.redirect("/users/all");
-    }
-
-    private void setAuthority(UserServiceModel user, UserViewModel userViewModel) {
-        Set<String> authorities = user.getAuthorities()
-                .stream()
-                .map(Role::getAuthority)
-                .collect(Collectors.toSet());
-        userViewModel.setAuthorities(authorities);
     }
 
 

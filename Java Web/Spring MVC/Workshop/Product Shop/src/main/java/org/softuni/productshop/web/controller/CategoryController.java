@@ -47,8 +47,8 @@ public class CategoryController extends BaseController {
             modelAndView.addObject("category", category);
             return super.view("/views/category/add-category", modelAndView);
         }
-        CategoryServiceModel categoryServiceModel = this.modelMapper.map(category, CategoryServiceModel.class);
         try {
+            CategoryServiceModel categoryServiceModel = this.modelMapper.map(category, CategoryServiceModel.class);
             this.categoryService.add(categoryServiceModel);
         } catch (CustomException e) {
             return super.view("/views/category/add-category");
@@ -110,7 +110,6 @@ public class CategoryController extends BaseController {
 
     @PostMapping("/delete/{id}")
     public ModelAndView confirmDelete(@PathVariable(name = "id") String id) {
-
         this.categoryService.delete(id);
         return super.redirect("/categories/all");
 

@@ -1,29 +1,23 @@
-package org.softuni.productshop.domain.model.service;
+package org.softuni.productshop.domain.model.binding.product;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ProductServiceModel {
+public class ProductEditBindingModel {
 
-    private String id;
-
+    @NotEmpty(message = "Name cannot be empty!")
     private String name;
 
+    @NotEmpty(message = "Description cannot be empty!")
     private String description;
 
+    @DecimalMin(value = "0.01", message = "Price cannot be empty!")
     private BigDecimal price;
 
-    private String imageUrl;
-
+    @NotEmpty(message = "At least one category should be selected!")
     private Set<String> categories;
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return this.name;
@@ -47,14 +41,6 @@ public class ProductServiceModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public Set<String> getCategories() {

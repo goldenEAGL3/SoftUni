@@ -5,6 +5,7 @@ import org.softuni.productshop.common.CustomException;
 import org.softuni.productshop.domain.entity.Role;
 import org.softuni.productshop.domain.entity.User;
 import org.softuni.productshop.domain.model.service.UserServiceModel;
+import org.softuni.productshop.domain.model.view.user.UserViewModel;
 import org.softuni.productshop.repository.RoleRepository;
 import org.softuni.productshop.repository.UserRepository;
 import org.softuni.productshop.util.ValidationService;
@@ -119,10 +120,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserServiceModel> findAll() {
-        List<UserServiceModel> allUsers = this.userRepository.findAll()
+    public List<UserViewModel> findAll() {
+        List<UserViewModel> allUsers = this.userRepository.findAll()
                 .stream()
-                .map(user -> this.modelMapper.map(user, UserServiceModel.class))
+                .map(user -> {
+                    UserViewModel userViewModel = this.modelMapper.map(user, UserViewModel.class);
+                    setAuthorityString(user, userViewModel);
+                    return userViewModel;
+                })
                 .collect(Collectors.toList());
         return allUsers;
     }
@@ -133,6 +138,14 @@ public class UserServiceImpl implements UserService {
                 .findById(id).orElseThrow(() -> new CustomException(ID_NOT_FOUND));
         this.setCorrectAuthority(user, role);
         this.userRepository.saveAndFlush(user);
+    }
+
+    private void setAuthorityString(User user, UserViewModel userViewModel) {
+        Set<String> authorities = user.getAuthorities()
+                .stream()
+                .map(Role::getAuthority)
+                .collect(Collectors.toSet());
+        userViewModel.setAuthorities(authorities);
     }
 
     private void setCorrectAuthority(User user, String role) {
