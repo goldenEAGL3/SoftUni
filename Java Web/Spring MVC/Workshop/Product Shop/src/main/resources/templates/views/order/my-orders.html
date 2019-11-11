@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:replace="/fragments/head"/>
+<body>
+<div class="container-fluid">
+
+
+
+    <header>
+        <th:block th:replace="/fragments/navbar"/>
+    </header>
+
+    <main class="mt-3">
+        <h1 class="text-center text-dark">My Orders</h1>
+        <hr class="hr-2 bg-dark w-75">
+        <table class="table table-hover w-75 mx-auto">
+            <thead>
+            <tr class="row mx-auto">
+                <th class="col-md-1 text-center">#</th>
+                <th class="col-md-3 text-center">Image</th>
+                <th class="col-md-3 text-center">Name</th>
+                <th class="col-md-2 text-center">Price</th>
+                <th class="col-md-3 text-center">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="order : ${orders}">
+                <tr class="row mx-auto">
+                    <th class="col-md-1 text-center" th:text="${orderStat.index + 1}"></th>
+                    <td class="col-md-3"><div class="text-center">
+                        <a th:href="@{/orders/details/{id}(id=${order.id})}">
+                        <img th:src="${order.productImageUrl}" width="40" height="40" alt="Product">
+                    </a></div></td>
+                    <td class="col-md-3 text-center" th:text="${order.customerUsername}"></td>
+                    <td class="col-md-2 text-center" th:text="${order.totalPrice}+'$'"></td>
+                    <td class="col-md-3 text-center" th:text="${order.orderDate}"></td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+        <hr class="hr-2 bg-dark">
+    </main>
+    
+    <footer class="mt-3">
+        <th:block th:replace="/fragments/footer"/>
+    </footer>
+
+</div>
+
+
+</body></html>

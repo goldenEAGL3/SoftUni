@@ -35,8 +35,12 @@
                         <a class="nav-link" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/orders/my}">My Orders</a>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link" th:href="@{/users/profile}">Profile</a>
                     </li>
+
 
                     <th:block sec:authorize="hasAuthority('MODERATOR')">
                         <li class="nav-item active">
@@ -65,6 +69,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="adminDropdown">
                                     <a class="dropdown-item" th:href="@{/users/all}">All Users</a>
+                                    <a class="dropdown-item" th:href="@{/orders/all}">All Orders</a>
                                 </div>
                             </div>
                         </li>
