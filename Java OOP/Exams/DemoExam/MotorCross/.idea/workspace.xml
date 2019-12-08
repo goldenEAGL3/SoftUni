@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="96cf41a4-460b-438d-a22b-ebc94465b95b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UhZ19NSD8J9SIts93vCErCxDmu" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\OOP\Exams\DemoExam\MotorCross\src" />
+      <recent name="D:\Java\OOP\Exams\DemoExam\MotorCross\src\motocrossWorldChampionship" />
+      <recent name="D:\SoftUni\WORK\Java Advanced\Projects\13-Exams\MXPG_Skeleton\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="motocrossWorldChampionship.Main" />
+      <module name="MotorCross" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="motocrossWorldChampionship.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="96cf41a4-460b-438d-a22b-ebc94465b95b" name="Default Changelist" comment="" />
+      <created>1564659712159</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564659712159</updated>
+      <workItem from="1564659755487" duration="5068000" />
+      <workItem from="1564731828100" duration="1534000" />
+      <workItem from="1575810570862" duration="6863000" />
+      <workItem from="1575824625493" duration="1059000" />
+      <workItem from="1575827339604" duration="3077000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="141" key="#com.intellij.ide.util.MemberChooser" timestamp="1575828879086">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="574" y="141" key="#com.intellij.ide.util.MemberChooser/0.0.1536.864@0.0.1536.864" timestamp="1575828879086" />
+    <state x="388" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575814352138">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="388" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1575814352138" />
+    <state x="499" y="178" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575827503635">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="178" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1575827503635" />
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog" timestamp="1575829885004">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="93" y="93" width="1350" height="678" key="DiffContextDialog/0.0.1536.864@0.0.1536.864" timestamp="1575829885004" />
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1575829938155">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1575829938155" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1575829938154">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1575829938154" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1575829938154">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1575829938154" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1575829938155">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1575829938155" />
+    <state width="1493" height="277" key="GridCell.Tab.1.bottom" timestamp="1575817439456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="277" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1575817439456" />
+    <state width="1493" height="277" key="GridCell.Tab.1.center" timestamp="1575817439456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="277" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1575817439456" />
+    <state width="1493" height="277" key="GridCell.Tab.1.left" timestamp="1575817439456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="277" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1575817439456" />
+    <state width="1493" height="277" key="GridCell.Tab.1.right" timestamp="1575817439456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="277" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1575817439456" />
+    <state x="249" y="6" key="SettingsEditor" timestamp="1575810599101">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="249" y="6" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1575810599101" />
+    <state x="465" y="255" key="com.intellij.ide.util.TipDialog" timestamp="1575827338822">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="465" y="255" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1575827338822" />
+    <state x="462" y="169" width="611" height="526" key="find.popup" timestamp="1575827786521">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="462" y="169" width="611" height="526" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1575827786521" />
+    <state x="511" y="50" key="refactoring.ChangeSignatureDialog" timestamp="1575827565669">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="511" y="50" key="refactoring.ChangeSignatureDialog/0.0.1536.864@0.0.1536.864" timestamp="1575827565669" />
+    <state x="425" y="197" key="run.anything.popup" timestamp="1575816433202">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1575816433202" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/motocrossWorldChampionship/core/ChampionshipControllerImpl.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
