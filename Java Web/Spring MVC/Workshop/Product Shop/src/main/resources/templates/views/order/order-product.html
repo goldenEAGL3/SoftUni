@@ -1,0 +1,58 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:replace="/fragments/head"/>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:replace="/fragments/navbar"/>
+    </header>
+
+    <main class="mt-3">
+        <div class="jumbotron bg-light">
+
+            <form id="add-product-form" class="form w-25 mx-auto text-center" th:action="@{/orders/product/{id}(id=${product.id})}"
+                  th:method="post" enctype="multipart/form-data">
+                <hr class="hr-2 bg-dark w-100">
+                <div class="form-group">
+                    <img th:src="${product.imageUrl}" width="350" height="350" alt="Product">
+                </div>
+                <div class="form-group">
+                    <label for="order-customer-name" class="font-weight-bold">Name</label>
+                    <input type="text" class="form-control text-center" id="order-customer-name" name="name"
+                           th:value="${#authentication.getName()}" disabled="">
+                </div>
+                <div class="form-group">
+                    <label for="order-product-name" class="font-weight-bold">Name</label>
+                    <input type="text" class="form-control text-center" id="order-product-name" name="name"
+                           th:value="${product.name}" disabled="">
+                </div>
+                <div class="form-group">
+                    <label for="order-product-description" class="font-weight-bold">Description</label>
+                    <textarea name="description" id="order-product-description" cols="41" rows="5" disabled=""
+                              th:text="${product.description}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="order-product-price" class="font-weight-bold">Price</label>
+                    <input type="number" step="any" class="form-control text-center" id="order-product-price" name="price"
+                           th:value="${product.price}" disabled="">
+                </div>
+                <div class="form-group">
+                    <label for="order-product-quantity" class="font-weight-bold">Quantity</label>
+                    <input type="text" class="form-control text-center" id="order-product-quantity" name="quantity">
+                </div>
+                <hr class="hr-2 bg-dark w-100">
+                <div class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Order Product</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="mt-3">
+        <th:block th:replace="/fragments/footer"/>
+    </footer>
+
+</div>
+
+
+</body>
+</html>

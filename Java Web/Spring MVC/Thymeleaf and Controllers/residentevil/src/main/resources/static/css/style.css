@@ -1,0 +1,15 @@
+.re-background {
+    background: #900C45 ;
+    color: white;
+}
+
+hr {
+    border-top: 1px solid black;
+}
+
+#wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
